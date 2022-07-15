@@ -1,8 +1,13 @@
 import "./app.css";
 import App from "./App.svelte";
 
-const app = new App({
-  target: document.getElementById("app")!,
-});
+let target: Element | null = document.querySelector("#app");
+
+if (!target) {
+  target = document.createElement("div");
+  document.body.append(target);
+}
+
+const app = new App({ target });
 
 export default app;

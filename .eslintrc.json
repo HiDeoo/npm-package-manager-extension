@@ -1,0 +1,13 @@
+{
+  "extends": "@hideoo",
+  "overrides": [
+    {
+      "files": ["*.svelte"],
+      "processor": "svelte3/svelte3"
+    }
+  ],
+  "plugins": ["svelte3"],
+  "settings": {
+    "svelte3/typescript": true
+  }
+}
