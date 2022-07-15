@@ -7,10 +7,7 @@
     "dev:edge": "pnpm manifest edge && vite build --watch",
     "build:edge": "pnpm manifest edge && vite build",
     "manifest": "tsx scripts/manifest",
-    "lint": "pnpm lint:eslint && pnpm lint:svelte && pnpm lint:ts",
-    "lint:eslint": "eslint . --max-warnings=0",
-    "lint:svelte": "svelte-check --tsconfig ./tsconfig.json",
-    "lint:ts": "tsc --noEmit",
+    "lint": "eslint . --max-warnings=0 && svelte-check --tsconfig ./tsconfig.json",
     "prepare": "husky install"
   },
   "devDependencies": {
