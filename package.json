@@ -4,8 +4,9 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
-    "dev": "vite build --watch",
-    "build:edge": "tsx scripts/build edge && vite build",
+    "dev:edge": "pnpm manifest edge && vite build --watch",
+    "build:edge": "pnpm manifest edge && vite build",
+    "manifest": "tsx scripts/manifest",
     "lint": "pnpm lint:eslint && pnpm lint:svelte && pnpm lint:ts",
     "lint:eslint": "eslint . --max-warnings=0",
     "lint:svelte": "svelte-check --tsconfig ./tsconfig.json",

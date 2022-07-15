@@ -7,7 +7,7 @@ const args = process.argv.slice(2)
 
 assert(args.length === 1, 'A single target argument is required.')
 
-async function build() {
+async function copyManifest() {
   const target = args[0]
 
   try {
@@ -26,4 +26,4 @@ function getDirname(): string {
   return dirname(fileURLToPath(import.meta.url))
 }
 
-build()
+copyManifest()
