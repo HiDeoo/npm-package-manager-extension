@@ -1,0 +1,44 @@
+{
+  "name": "npm-package-manager-extension",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "dev:edge": "pnpm manifest edge && vite build --watch",
+    "build:edge": "pnpm manifest edge && vite build",
+    "manifest": "tsx scripts/manifest",
+    "lint": "pnpm lint:eslint && pnpm lint:svelte && pnpm lint:ts",
+    "lint:eslint": "eslint . --max-warnings=0",
+    "lint:svelte": "svelte-check --tsconfig ./tsconfig.json",
+    "lint:ts": "tsc --noEmit",
+    "prepare": "husky install"
+  },
+  "devDependencies": {
+    "@hideoo/eslint-config": "0.2.3",
+    "@hideoo/prettier-config": "0.0.1",
+    "@sveltejs/vite-plugin-svelte": "^1.0.1",
+    "@tsconfig/svelte": "^3.0.0",
+    "eslint": "8.19.0",
+    "eslint-plugin-svelte3": "4.0.0",
+    "husky": "8.0.1",
+    "lint-staged": "13.0.3",
+    "prettier": "2.7.1",
+    "prettier-plugin-svelte": "2.7.0",
+    "svelte": "^3.49.0",
+    "svelte-check": "^2.8.0",
+    "svelte-preprocess": "^4.10.7",
+    "tslib": "^2.4.0",
+    "tsx": "3.8.0",
+    "typescript": "^4.6.4",
+    "vite": "^3.0.0"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "packageManager": "pnpm@7.4.0",
+  "prettier": "@hideoo/prettier-config",
+  "lint-staged": {
+    "**/*": "prettier -w --u --plugin-search-dir=. --cache",
+    "**/*.{ts,svelte}": "eslint --max-warnings=0"
+  }
+}
