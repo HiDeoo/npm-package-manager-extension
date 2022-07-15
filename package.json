@@ -32,6 +32,9 @@
     "typescript": "^4.6.4",
     "vite": "^3.0.0"
   },
+  "engines": {
+    "node": ">=16.0.0"
+  },
   "packageManager": "pnpm@7.4.0",
   "prettier": "@hideoo/prettier-config",
   "lint-staged": {
