@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite build --watch",
-    "build": "vite build",
+    "build:edge": "tsx scripts/build edge && vite build",
     "lint": "pnpm lint:eslint && pnpm lint:svelte && pnpm lint:ts",
     "lint:eslint": "eslint . --max-warnings=0",
     "lint:svelte": "svelte-check --tsconfig ./tsconfig.json",
@@ -27,6 +27,7 @@
     "svelte-check": "^2.8.0",
     "svelte-preprocess": "^4.10.7",
     "tslib": "^2.4.0",
+    "tsx": "3.8.0",
     "typescript": "^4.6.4",
     "vite": "^3.0.0"
   },
