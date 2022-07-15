@@ -9,7 +9,8 @@
     "lint": "pnpm lint:eslint && pnpm lint:svelte && pnpm lint:ts",
     "lint:eslint": "eslint . --max-warnings=0",
     "lint:svelte": "svelte-check --tsconfig ./tsconfig.json",
-    "lint:ts": "tsc --noEmit"
+    "lint:ts": "tsc --noEmit",
+    "prepare": "husky install"
   },
   "devDependencies": {
     "@hideoo/eslint-config": "0.2.3",
@@ -18,6 +19,8 @@
     "@tsconfig/svelte": "^3.0.0",
     "eslint": "8.19.0",
     "eslint-plugin-svelte3": "4.0.0",
+    "husky": "8.0.1",
+    "lint-staged": "13.0.3",
     "prettier": "2.7.1",
     "prettier-plugin-svelte": "2.7.0",
     "svelte": "^3.49.0",
@@ -27,5 +30,9 @@
     "typescript": "^4.6.4",
     "vite": "^3.0.0"
   },
-  "prettier": "@hideoo/prettier-config"
+  "prettier": "@hideoo/prettier-config",
+  "lint-staged": {
+    "**/*": "prettier -w --u --plugin-search-dir=. --cache",
+    "**/*.{ts,svelte}": "eslint --max-warnings=0"
+  }
 }
