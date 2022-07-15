@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite build --watch",
     "build": "vite build",
     "lint": "pnpm lint:eslint && pnpm lint:svelte && pnpm lint:ts",
     "lint:eslint": "eslint . --max-warnings=0",
