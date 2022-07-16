@@ -17,6 +17,7 @@
     "resolveJsonModule": true,
     "strict": true,
     "target": "ESNext",
+    "types": ["chrome"],
     "useDefineForClassFields": true
   },
   "include": ["src/**/*.d.ts", "src/**/*.ts", "src/**/*.js", "src/**/*.svelte"],

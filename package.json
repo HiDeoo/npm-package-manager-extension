@@ -15,6 +15,7 @@
     "@hideoo/prettier-config": "0.0.1",
     "@sveltejs/vite-plugin-svelte": "^1.0.1",
     "@tsconfig/svelte": "^3.0.0",
+    "@types/chrome": "0.0.193",
     "eslint": "8.19.0",
     "eslint-plugin-svelte3": "4.0.0",
     "husky": "8.0.1",
