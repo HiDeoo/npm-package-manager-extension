@@ -1,3 +1,3 @@
-console.error('CONTENT')
+import { getOptions } from '@/libs/storage'
 
-export {}
+getOptions()

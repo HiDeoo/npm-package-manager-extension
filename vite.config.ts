@@ -9,11 +9,13 @@ export default defineConfig({
     rollupOptions: {
       input: {
         content: resolve(__dirname, 'src', 'content', 'index.ts'),
+        loader: resolve(__dirname, 'src', 'content', 'loader.ts'),
         options: resolve(__dirname, 'options.html'),
         popup: resolve(__dirname, 'popup.html'),
       },
       output: {
-        entryFileNames: ({ name }) => (name === 'content' ? 'content.js' : 'assets/[name].[hash].js'),
+        entryFileNames: ({ name }) =>
+          name === 'content' ? 'content.js' : name === 'loader' ? 'loader.js' : 'assets/[name].[hash].js',
       },
     },
   },
