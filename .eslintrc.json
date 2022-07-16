@@ -3,7 +3,13 @@
   "overrides": [
     {
       "files": ["*.svelte"],
-      "processor": "svelte3/svelte3"
+      "processor": "svelte3/svelte3",
+      "rules": {
+        "no-undef": "off",
+        "@typescript-eslint/no-use-before-define": "off",
+
+        "import/no-mutable-exports": "off"
+      }
     }
   ],
   "plugins": ["svelte3"],
