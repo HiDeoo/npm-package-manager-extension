@@ -1,20 +1,40 @@
+@import 'open-props/normalize';
+
+@import 'open-props/borders';
+@import 'open-props/colors';
+@import 'open-props/easings';
+@import 'open-props/gradients';
+@import 'open-props/shadows';
+@import 'open-props/sizes';
+
 :root {
-  --page-bg-color: rgb(244 244 245);
-  --page-bg-gradient: linear-gradient(to bottom right, var(--page-bg-color), rgb(228 228 231));
+  --page-bg-image: var(--gradient-9);
+
+  --primary-color: var(--indigo-8);
+
+  --ring: 2px solid var(--primary-color);
+  --ring-offset: 2px;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --page-bg-color: rgb(39 39 42);
-    --page-bg-gradient: linear-gradient(to bottom right, var(--page-bg-color), rgb(24 24 27));
+    --page-bg-image: var(--gradient-8);
+
+    --primary-color: var(--indigo-8);
+
+    --ring: 2px solid var(--primary-color);
   }
 }
 
 html {
-  margin: 0;
+  background-image: var(--page-bg-image);
 }
 
-body {
-  background: var(--page-bg-color);
-  background: var(--page-bg-gradient);
+html {
+  margin: 0;
+
+  /**
+   * // FIXME
+   */
+  width: 300px;
 }

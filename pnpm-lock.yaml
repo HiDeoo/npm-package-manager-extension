@@ -10,6 +10,7 @@ specifiers:
   eslint-plugin-svelte3: 4.0.0
   husky: 8.0.1
   lint-staged: 13.0.3
+  open-props: 1.4.3
   prettier: 2.7.1
   prettier-plugin-svelte: 2.7.0
   svelte: ^3.49.0
@@ -31,6 +32,7 @@ devDependencies:
   eslint-plugin-svelte3: 4.0.0_jxmmfmurkts274jdspwh3cyqve
   husky: 8.0.1
   lint-staged: 13.0.3
+  open-props: 1.4.3
   prettier: 2.7.1
   prettier-plugin-svelte: 2.7.0_o3ioganyptcsrh6x4hnxvjkpqi
   svelte: 3.49.0
@@ -2256,6 +2258,10 @@ packages:
     engines: {node: '>=12'}
     dependencies:
       mimic-fn: 4.0.0
+    dev: true
+
+  /open-props/1.4.3:
+    resolution: {integrity: sha512-JlsU1aKkhbX+SMV8npuCzfqKiQn4wlJ4lGP/J1Eoum0et+H9s0Oho1G5kHgSkPCgP35ENEPrHVbT8HcUgxkU8Q==}
     dev: true
 
   /open/8.4.0:
