@@ -8,8 +8,12 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: {
+        content: resolve(__dirname, 'src', 'content', 'index.ts'),
         options: resolve(__dirname, 'options.html'),
         popup: resolve(__dirname, 'popup.html'),
+      },
+      output: {
+        entryFileNames: ({ name }) => (name === 'content' ? 'content.js' : 'assets/[name].[hash].js'),
       },
     },
   },

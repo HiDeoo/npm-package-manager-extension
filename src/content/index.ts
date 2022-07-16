@@ -1,0 +1,3 @@
+console.error('CONTENT')
+
+export {}
