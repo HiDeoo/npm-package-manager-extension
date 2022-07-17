@@ -66,6 +66,11 @@ body {
   width: 300px;
 }
 
+::selection {
+  background-color: var(--primary-color-light);
+  color: var(--color);
+}
+
 a {
   color: var(--color);
   font-weight: 500;
