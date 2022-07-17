@@ -14,7 +14,7 @@
   --size-1: 0.25rem;
   --size-2: 0.5rem;
   --size-3: 1rem;
-  --size-7: 2rem;
+  --size-8: 3rem;
 
   --border-size-2: 2px;
 
@@ -22,7 +22,7 @@
 
   --control-bg-color: #343a40;
   --control-bg-color-hover: #495057;
-  --control-padding: calc(var(--size-2) - var(--size-1) / 2) var(--size-2);
+  --control-padding: calc(var(--size-2) - var(--size-1) / 2) calc(var(--size-3) - var(--size-1));
   --control-radius: var(--radius-2);
   --control-ring: var(--border-size-2) solid var(--primary-color);
   --control-ring-offset: 2px;

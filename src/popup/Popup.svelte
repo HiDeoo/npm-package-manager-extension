@@ -17,7 +17,7 @@
 
 <main>
   {#if options}
-    <Select bind:value={options.packageManager} options={packageManagers} />
+    <Select bind:value={options.packageManager} options={packageManagers} label="Choose your package manager" />
     <Footer />
   {:else}
     <p>// TODO</p>
