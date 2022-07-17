@@ -2,11 +2,11 @@
 :root {
   --page-bg-color: #f8f9fa;
 
-  --color: #e9ecef;
-  --color-light: #adb5bd;
-  --primary-color: #3b5bdb;
-  --primary-color-light: #5c7cfa;
-  --error-color: #fa5252;
+  --color: #495057;
+  --color-light: #868e96;
+  --primary-color: #5c7cfa;
+  --primary-color-light: #748ffc;
+  --error-color: #ff6b6b;
 
   --font-sans: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif;
 
@@ -25,14 +25,14 @@
   --radius-1: 2px;
   --radius-2: 5px;
 
-  --control-bg-color: #343a40;
-  --control-bg-color-hover: #495057;
+  --control-bg-color: #ced4da;
+  --control-bg-color-hover: #dee2e6;
   --control-padding: calc(var(--size-2) - var(--size-1) / 2) calc(var(--size-3) - var(--size-1));
   --control-radius: var(--radius-2);
   --control-ring: var(--border-size-2) solid var(--primary-color);
   --control-ring-offset: 2px;
 
-  --code-bg-color: #343a4059;
+  --code-bg-color: #dee2e6;
   --code-color: var(--color-light);
 }
 
@@ -44,9 +44,12 @@
     --color-light: #adb5bd;
     --primary-color: #3b5bdb;
     --primary-color-light: #5c7cfa;
+    --error-color: #fa5252;
 
     --control-bg-color: #343a40;
     --control-bg-color-hover: #495057;
+
+    --code-bg-color: #343a4059;
   }
 }
 
