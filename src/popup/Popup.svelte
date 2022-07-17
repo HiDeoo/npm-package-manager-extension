@@ -28,6 +28,5 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: var(--size-8) var(--size-7);
   }
 </style>
