@@ -10,6 +10,8 @@
 
   --font-size-1: 0.9rem;
   --font-size-2: 1rem;
+  --font-size-3: 1.25rem;
+  --font-lineheight-3: 1.5;
 
   --size-1: 0.25rem;
   --size-2: 0.5rem;
@@ -26,6 +28,9 @@
   --control-radius: var(--radius-2);
   --control-ring: var(--border-size-2) solid var(--primary-color);
   --control-ring-offset: 2px;
+
+  --code-bg-color: #343a4059;
+  --code-color: #adb5bd;
 }
 
 @media (prefers-color-scheme: dark) {

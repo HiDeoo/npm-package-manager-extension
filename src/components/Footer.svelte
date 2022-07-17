@@ -5,11 +5,9 @@
 
 <style>
   footer {
-    box-sizing: border-box;
     display: flex;
     justify-content: space-between;
     padding: var(--size-3);
-    width: 100%;
   }
 
   a {
