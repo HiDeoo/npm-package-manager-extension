@@ -45,4 +45,8 @@
     padding: var(--size-2);
     text-align: center;
   }
+
+  strong {
+    color: var(--error-color);
+  }
 </style>
