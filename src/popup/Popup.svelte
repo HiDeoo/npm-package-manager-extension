@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte'
 
+  import Footer from '@/components/Footer.svelte'
   import Select from '@/components/Select.svelte'
   import { getOptions, setOptions, type Options } from '@/libs/options'
   import { packageManagers } from '@/libs/packageManager'
@@ -17,6 +18,7 @@
 <main>
   {#if options}
     <Select bind:value={options.packageManager} options={packageManagers} />
+    <Footer />
   {:else}
     <p>// TODO</p>
   {/if}

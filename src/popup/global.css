@@ -4,13 +4,16 @@
 
   --color: #e9ecef;
   --primary-color: #3b5bdb;
+  --primary-color-light: #5c7cfa;
 
   --font-sans: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif;
 
   --font-size-1: 0.9rem;
+  --font-size-2: 1rem;
 
   --size-1: 0.25rem;
   --size-2: 0.5rem;
+  --size-3: 1rem;
   --size-7: 2rem;
 
   --border-size-2: 2px;
@@ -31,6 +34,7 @@
 
     --color: #e9ecef;
     --primary-color: #3b5bdb;
+    --primary-color-light: #5c7cfa;
 
     --control-bg-color: #343a40;
     --control-bg-color-hover: #495057;
@@ -47,11 +51,22 @@ html {
 
 html,
 body {
+  font-size: var(--font-size-1);
   margin: 0;
 
   /**
    * // FIXME
    */
   width: 300px;
-  padding: 30px 0;
+}
+
+a {
+  color: var(--color);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--primary-color-light);
+  text-decoration: underline;
 }

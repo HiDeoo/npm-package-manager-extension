@@ -20,7 +20,7 @@
     border: none;
     border-radius: var(--control-radius);
     cursor: pointer;
-    font-size: var(--font-size-1);
+    font-size: var(--font-size-2);
     padding: var(--control-padding);
     padding-right: var(--size-7);
   }
