@@ -3,6 +3,7 @@
   --page-bg-color: #f8f9fa;
 
   --color: #e9ecef;
+  --color-light: #adb5bd;
   --primary-color: #3b5bdb;
   --primary-color-light: #5c7cfa;
 
@@ -31,7 +32,7 @@
   --control-ring-offset: 2px;
 
   --code-bg-color: #343a4059;
-  --code-color: #adb5bd;
+  --code-color: var(--color-light);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -39,12 +40,12 @@
     --page-bg-color: #212529;
 
     --color: #e9ecef;
+    --color-light: #adb5bd;
     --primary-color: #3b5bdb;
     --primary-color-light: #5c7cfa;
 
     --control-bg-color: #343a40;
     --control-bg-color-hover: #495057;
-    --control-ring: var(--border-size-2) solid var(--primary-color);
   }
 }
 
@@ -72,8 +73,7 @@ body {
 }
 
 a {
-  color: var(--color);
-  font-weight: 500;
+  color: var(--color-light);
   text-decoration: none;
 }
 
