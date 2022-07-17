@@ -20,6 +20,7 @@
 
   --border-size-2: 2px;
 
+  --radius-1: 2px;
   --radius-2: 5px;
 
   --control-bg-color: #343a40;
@@ -74,4 +75,10 @@ a {
 a:hover {
   color: var(--primary-color-light);
   text-decoration: underline;
+}
+
+a:focus-visible {
+  border-radius: var(--radius-1);
+  outline: var(--control-ring);
+  outline-offset: var(--control-ring-offset);
 }
