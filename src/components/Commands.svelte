@@ -7,11 +7,11 @@
 <section>
   {#if isValidPackageManager(packageManager)}
     <code>
-      <div>$ {packageManager}</div>
-      <div>$ {packageManager}</div>
+      <div>$ {packageManager} add -D {'<'}dependency{'>'}</div>
+      <div>$ {packageManager} add -D {'<'}dependency{'>'}</div>
     </code>
   {:else}
-    <p>Npm Package Manager is currently <strong>disabled</strong>.</p>
+    <p>Npm Package Manager is<br />currently <strong>disabled</strong>.</p>
   {/if}
 </section>
 
@@ -22,7 +22,7 @@
     align-self: stretch;
     color: var(--code-color);
     line-height: var(--font-lineheight-3);
-    margin-inline: var(--size-8);
+    margin-inline: var(--size-6);
   }
 
   code {

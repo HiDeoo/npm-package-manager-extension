@@ -18,6 +18,7 @@
   --size-1: 0.25rem;
   --size-2: 0.5rem;
   --size-3: 1rem;
+  --size-6: 1.75rem;
   --size-8: 3rem;
 
   --border-size-2: 2px;
@@ -64,11 +65,7 @@ html,
 body {
   font-size: var(--font-size-1);
   margin: 0;
-
-  /**
-   * // FIXME
-   */
-  width: 300px;
+  width: 280px;
 }
 
 ::selection {
