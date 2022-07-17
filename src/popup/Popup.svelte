@@ -2,8 +2,8 @@
   import { onMount } from 'svelte'
 
   import Select from '@/components/Select.svelte'
+  import { getOptions, setOptions, type Options } from '@/libs/options'
   import { packageManagers } from '@/libs/packageManager'
-  import { getOptions, setOptions, type Options } from '@/libs/storage'
 
   let options: Options | undefined
 
@@ -11,7 +11,7 @@
     options = await getOptions()
   })
 
-  $: options && setOptions({ enabled: options.enabled })
+  $: options && setOptions(options)
 </script>
 
 <main>

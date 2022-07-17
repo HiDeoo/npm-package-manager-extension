@@ -1,7 +1,6 @@
 import type { PackageManager } from '@/libs/packageManager'
 
 const defaultOptions: Options = {
-  enabled: true,
   packageManager: 'pnpm',
 }
 
@@ -13,16 +12,13 @@ export function setOptions(options: Partial<Options>) {
   return chrome.storage.sync.set(options)
 }
 
-export function addOptionsListener(listener: (newOptions: Options, optionChanges: OptionsChanges) => void) {
+export function addOptionsListener(listener: (optionChanges: OptionsChanges) => void) {
   return chrome.storage.onChanged.addListener(async (changes) => {
-    const newOptions = await getOptions()
-
-    listener(newOptions, changes as OptionsChanges)
+    listener(changes as OptionsChanges)
   })
 }
 
 export interface Options {
-  enabled: boolean
   packageManager: PackageManager
 }
 
