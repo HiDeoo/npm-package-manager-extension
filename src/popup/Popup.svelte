@@ -1,7 +1,8 @@
 <script lang="ts">
   import { onMount } from 'svelte'
 
-  import Switch from '@/components/Switch.svelte'
+  import Select from '@/components/Select.svelte'
+  import { packageManagers } from '@/libs/packageManager'
   import { getOptions, setOptions, type Options } from '@/libs/storage'
 
   let options: Options | undefined
@@ -15,7 +16,7 @@
 
 <main>
   {#if options}
-    <Switch bind:checked={options.enabled} label="Enabled????" />
+    <Select bind:value={options.packageManager} options={packageManagers} />
   {:else}
     <p>// TODO</p>
   {/if}

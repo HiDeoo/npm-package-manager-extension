@@ -10,7 +10,6 @@ export default defineConfig({
       input: {
         content: resolve(__dirname, 'src', 'content', 'index.ts'),
         loader: resolve(__dirname, 'src', 'content', 'loader.ts'),
-        options: resolve(__dirname, 'options.html'),
         popup: resolve(__dirname, 'popup.html'),
       },
       output: {
