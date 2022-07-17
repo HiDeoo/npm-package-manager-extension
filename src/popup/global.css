@@ -1,9 +1,27 @@
+/* Based on https://github.com/argyleink/open-props */
 :root {
   --page-bg-color: #f8f9fa;
 
+  --color: #e9ecef;
   --primary-color: #3b5bdb;
 
-  --control-ring: 2px solid var(--primary-color);
+  --font-sans: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif;
+
+  --font-size-1: 0.9rem;
+
+  --size-1: 0.25rem;
+  --size-2: 0.5rem;
+  --size-7: 2rem;
+
+  --border-size-2: 2px;
+
+  --radius-2: 5px;
+
+  --control-bg-color: #343a40;
+  --control-bg-color-hover: #495057;
+  --control-padding: calc(var(--size-2) - var(--size-1) / 2) var(--size-2);
+  --control-radius: var(--radius-2);
+  --control-ring: var(--border-size-2) solid var(--primary-color);
   --control-ring-offset: 2px;
 }
 
@@ -11,14 +29,19 @@
   :root {
     --page-bg-color: #212529;
 
+    --color: #e9ecef;
     --primary-color: #3b5bdb;
 
-    --control-ring: 2px solid var(--primary-color);
+    --control-bg-color: #343a40;
+    --control-bg-color-hover: #495057;
+    --control-ring: var(--border-size-2) solid var(--primary-color);
   }
 }
 
 html {
   background-color: var(--page-bg-color);
+  color: var(--color);
+  font-family: var(--font-sans);
   font-size: 16px;
 }
 
@@ -30,4 +53,5 @@ body {
    * // FIXME
    */
   width: 300px;
+  padding: 30px 0;
 }
