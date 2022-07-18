@@ -1,5 +1,5 @@
 import assert from 'node:assert'
-import { copyFile, readFile, writeFile } from 'node:fs/promises'
+import { access, copyFile, mkdir, readFile, writeFile } from 'node:fs/promises'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -14,7 +14,11 @@ async function copyManifest() {
   const isTest = args[1] === '--test'
 
   try {
-    const outputPath = join(getDirname(), '..', 'public', 'manifest.json')
+    const outputDirPath = join(getDirname(), '..', 'public')
+
+    await ensureDir(outputDirPath)
+
+    const outputPath = join(outputDirPath, 'manifest.json')
 
     await copyFile(getManifestPath(target), outputPath)
 
@@ -40,6 +44,14 @@ function getDirname(): string {
 
 function getHelp() {
   return 'Usage: npm-package-manager-extension <target> [--test]'
+}
+
+async function ensureDir(path: string) {
+  try {
+    await access(path)
+  } catch {
+    await mkdir(path)
+  }
 }
 
 async function setManifestTestKey(path: string) {
