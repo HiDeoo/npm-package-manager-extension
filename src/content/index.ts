@@ -71,12 +71,15 @@ function createCommandNode(command: HTMLElement, packageManager: PackageManager,
   showElement(newCommand)
   newCommand.classList.add(npmManagerCommandClass)
 
-  const commandTextNode = newCommand.querySelector('span')
+  const commandButtonNode = newCommand.querySelector('span[role=button]')
 
-  if (commandTextNode) {
-    commandTextNode.textContent = `${packageManager} add ${dev ? '-D' : ''} ${commandTextNode.textContent
+  if (commandButtonNode) {
+    commandButtonNode.textContent = `${packageManager} add ${dev ? '-D ' : ''}${commandButtonNode.textContent
       ?.split(' ')
       ?.at(-1)}`
+
+    commandButtonNode.addEventListener('click', handleCommandClick)
+    commandButtonNode.addEventListener('keypress', handleCommandKeyPress)
   }
 
   return newCommand
@@ -86,8 +89,40 @@ function removeCommandNodes() {
   const commandNodes = document.querySelectorAll(`.${npmManagerCommandClass}`)
 
   for (const commandNode of commandNodes) {
+    const commandButtonNode = commandNode.querySelector('span[role=button]')
+
+    commandButtonNode?.addEventListener('click', handleCommandClick)
+    commandButtonNode?.addEventListener('keypress', handleCommandKeyPress)
+
     commandNode.remove()
   }
+}
+
+function handleCommandClick(event: Event) {
+  if (!event.currentTarget || !(event.currentTarget instanceof HTMLElement) || !event.currentTarget.textContent) {
+    return
+  }
+
+  copyToClipboard(event.currentTarget.textContent)
+}
+
+function handleCommandKeyPress(event: Event) {
+  if (
+    !(event instanceof KeyboardEvent) ||
+    event.key !== 'Enter' ||
+    !event.currentTarget ||
+    !(event.currentTarget instanceof HTMLElement) ||
+    !event.currentTarget.textContent
+  ) {
+    return
+  }
+
+  copyToClipboard(event.currentTarget.textContent)
+}
+
+function copyToClipboard(text: string) {
+  // TODO(HiDeoo)
+  console.error('🚨 [index.ts:105] text', text)
 }
 
 getOptions()
