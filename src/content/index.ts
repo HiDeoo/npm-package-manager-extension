@@ -1,6 +1,8 @@
-import { hideElement, showElement } from '@/libs/html'
+import { cloneElement, hideElement, showElement } from '@/libs/html'
 import { addOptionsListener, getOptions, type Options } from '@/libs/options'
-import { isValidPackageManager } from '@/libs/packageManager'
+import { isValidPackageManager, type PackageManager } from '@/libs/packageManager'
+
+const npmManagerCommandClass = 'npm-package-manager-command'
 
 function setup(options: Options) {
   addOptionsListener((optionChanges) => {
@@ -20,7 +22,7 @@ function setup(options: Options) {
   start(options)
 }
 
-function start(options: Options) {
+function start({ packageManager }: Options) {
   const { command, commandTitle } = getNpmElements()
 
   if (!command || !commandTitle) {
@@ -29,19 +31,23 @@ function start(options: Options) {
 
   hideElement(command)
 
-  if (isValidPackageManager(options.packageManager)) {
-    commandTitle.textContent = `Install with ${options.packageManager}`
-  }
+  updateCommandTitle(commandTitle, packageManager)
+
+  commandTitle.after(createCommandNode(command, packageManager), createCommandNode(command, packageManager, true))
 }
 
 function stop() {
-  const { command } = getNpmElements()
+  removeCommandNodes()
 
-  if (!command) {
+  const { command, commandTitle } = getNpmElements()
+
+  if (!command || !commandTitle) {
     return
   }
 
   showElement(command)
+
+  updateCommandTitle(commandTitle)
 }
 
 function getNpmElements() {
@@ -50,9 +56,37 @@ function getNpmElements() {
   const commandTitle = sidebar?.firstChild
 
   return {
-    sidebar,
     command,
     commandTitle,
+  }
+}
+
+function updateCommandTitle(commandTitle: ChildNode, packageManager?: PackageManager) {
+  commandTitle.textContent = packageManager ? `Install with ${packageManager}` : 'Install'
+}
+
+function createCommandNode(command: HTMLElement, packageManager: PackageManager, dev = false) {
+  const newCommand = cloneElement(command)
+
+  showElement(newCommand)
+  newCommand.classList.add(npmManagerCommandClass)
+
+  const commandTextNode = newCommand.querySelector('span')
+
+  if (commandTextNode) {
+    commandTextNode.textContent = `${packageManager} add ${dev ? '-D' : ''} ${commandTextNode.textContent
+      ?.split(' ')
+      ?.at(-1)}`
+  }
+
+  return newCommand
+}
+
+function removeCommandNodes() {
+  const commandNodes = document.querySelectorAll(`.${npmManagerCommandClass}`)
+
+  for (const commandNode of commandNodes) {
+    commandNode.remove()
   }
 }
 
