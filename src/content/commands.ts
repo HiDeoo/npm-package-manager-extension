@@ -62,8 +62,11 @@ export function handleCommandKeyPress(event: Event) {
 }
 
 function copyCommandToClipboard(target: HTMLElement) {
-  // TODO(HiDeoo)
-  console.error('🚨 [index.ts:105] text', target.textContent)
+  if (!target.textContent) {
+    return
+  }
+
+  navigator.clipboard.writeText(target.textContent)
 
   const svg = target.parentElement?.parentElement?.querySelector('svg[data-icon="copy"]')
 
