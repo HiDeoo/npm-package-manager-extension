@@ -12,10 +12,6 @@
       "run_at": "document_idle"
     }
   ],
-  "options_ui": {
-    "page": "options.html",
-    "open_in_tab": false
-  },
   "permissions": ["storage"],
   "web_accessible_resources": [
     {

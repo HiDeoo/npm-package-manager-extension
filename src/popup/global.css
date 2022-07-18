@@ -1,0 +1,90 @@
+/* Based on https://github.com/argyleink/open-props */
+:root {
+  --page-bg-color: #f8f9fa;
+
+  --color: #495057;
+  --color-light: #868e96;
+  --primary-color: #5c7cfa;
+  --primary-color-light: #748ffc;
+  --error-color: #ff6b6b;
+
+  --font-sans: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif;
+
+  --font-size-1: 0.9rem;
+  --font-size-2: 1rem;
+  --font-size-3: 1.25rem;
+  --font-lineheight-3: 1.5;
+
+  --size-1: 0.25rem;
+  --size-2: 0.5rem;
+  --size-3: 1rem;
+  --size-6: 1.75rem;
+  --size-8: 3rem;
+
+  --border-size-2: 2px;
+
+  --radius-1: 2px;
+  --radius-2: 5px;
+
+  --control-bg-color: #ced4da;
+  --control-bg-color-hover: #dee2e6;
+  --control-padding: calc(var(--size-2) - var(--size-1) / 2) calc(var(--size-3) - var(--size-1));
+  --control-radius: var(--radius-2);
+  --control-ring: var(--border-size-2) solid var(--primary-color);
+  --control-ring-offset: 2px;
+
+  --code-bg-color: #dee2e6;
+  --code-color: var(--color-light);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --page-bg-color: #212529;
+
+    --color: #e9ecef;
+    --color-light: #adb5bd;
+    --primary-color: #3b5bdb;
+    --primary-color-light: #5c7cfa;
+    --error-color: #fa5252;
+
+    --control-bg-color: #343a40;
+    --control-bg-color-hover: #495057;
+
+    --code-bg-color: #343a4059;
+  }
+}
+
+html {
+  background-color: var(--page-bg-color);
+  color: var(--color);
+  font-family: var(--font-sans);
+  font-size: 16px;
+}
+
+html,
+body {
+  font-size: var(--font-size-1);
+  margin: 0;
+  width: 280px;
+}
+
+::selection {
+  background-color: var(--primary-color-light);
+  color: var(--color);
+}
+
+a {
+  color: var(--color-light);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--primary-color-light);
+  text-decoration: underline;
+}
+
+a:focus-visible {
+  border-radius: var(--radius-1);
+  outline: var(--control-ring);
+  outline-offset: var(--control-ring-offset);
+}

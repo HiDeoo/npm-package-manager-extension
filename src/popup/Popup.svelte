@@ -1,8 +1,12 @@
 <script lang="ts">
   import { onMount } from 'svelte'
 
-  import Switch from '@/components/Switch.svelte'
-  import { getOptions, setOptions, type Options } from '@/libs/storage'
+  import Commands from '@/components/Commands.svelte'
+  import Footer from '@/components/Footer.svelte'
+  import Header from '@/components/Header.svelte'
+  import Select from '@/components/Select.svelte'
+  import { getOptions, setOptions, type Options } from '@/libs/options'
+  import { packageManagers } from '@/libs/packageManager'
 
   let options: Options | undefined
 
@@ -10,13 +14,26 @@
     options = await getOptions()
   })
 
-  $: options && setOptions({ enabled: options.enabled })
+  $: options && setOptions(options)
 </script>
 
-<main>
-  {#if options}
-    <Switch bind:checked={options.enabled} label="Enabled????" />
-  {:else}
-    <p>// TODO</p>
-  {/if}
-</main>
+{#if options}
+  <Header />
+  <main>
+    <Select bind:value={options.packageManager} options={packageManagers} label="Choose your package manager" />
+    <Commands packageManager={options.packageManager} />
+  </main>
+  <Footer />
+{:else}
+  <p>// TODO</p>
+{/if}
+
+<style>
+  main {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-block: var(--size-2);
+  }
+</style>

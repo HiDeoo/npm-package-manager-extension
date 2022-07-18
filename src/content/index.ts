@@ -1,18 +1,19 @@
 import { hideElement, showElement } from '@/libs/html'
-import { addOptionsListener, getOptions, type Options } from '@/libs/storage'
+import { addOptionsListener, getOptions, type Options } from '@/libs/options'
+import { isValidPackageManager } from '@/libs/packageManager'
 
 function setup(options: Options) {
-  addOptionsListener((newOptions, optionChanges) => {
-    if (optionChanges.enabled.oldValue) {
+  addOptionsListener((optionChanges) => {
+    if (isValidPackageManager(optionChanges.packageManager.oldValue)) {
       stop()
     }
 
-    if (optionChanges.enabled.newValue) {
-      start(newOptions)
+    if (isValidPackageManager(optionChanges.packageManager.newValue)) {
+      start({ packageManager: optionChanges.packageManager.newValue })
     }
   })
 
-  if (!options.enabled) {
+  if (!isValidPackageManager(options.packageManager)) {
     return
   }
 
