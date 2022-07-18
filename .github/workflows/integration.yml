@@ -47,7 +47,11 @@ jobs:
         run: pnpm install
 
       - name: Install Playwright browsers
-        run: pnpx playwright install chromium --with-deps
+        run: |
+          pnpm playwright install chromium
+          pnpm playwright install-deps chromium
+        env:
+          PLAYWRIGHT_BROWSERS_PATH: 0
 
       - name: Lint
         run: pnpm lint
