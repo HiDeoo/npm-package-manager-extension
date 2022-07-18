@@ -1,6 +1,6 @@
 import { cloneElement, hideElement, showElement } from '@/libs/html'
 import { addOptionsListener, getOptions, type Options } from '@/libs/options'
-import { isValidPackageManager, type PackageManager } from '@/libs/packageManager'
+import { getPackageManagerCommand, isValidPackageManager, type PackageManager } from '@/libs/packageManager'
 
 const npmManagerCommandClass = 'npm-package-manager-command'
 
@@ -72,11 +72,10 @@ function createCommandNode(command: HTMLElement, packageManager: PackageManager,
   newCommand.classList.add(npmManagerCommandClass)
 
   const commandButtonNode = newCommand.querySelector('span[role=button]')
+  const dependency = commandButtonNode?.textContent?.split(' ')?.at(-1)
 
-  if (commandButtonNode) {
-    commandButtonNode.textContent = `${packageManager} add ${dev ? '-D ' : ''}${commandButtonNode.textContent
-      ?.split(' ')
-      ?.at(-1)}`
+  if (commandButtonNode && dependency) {
+    commandButtonNode.textContent = getPackageManagerCommand(packageManager, dependency, dev)
 
     commandButtonNode.addEventListener('click', handleCommandClick)
     commandButtonNode.addEventListener('keypress', handleCommandKeyPress)
