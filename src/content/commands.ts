@@ -32,8 +32,8 @@ export function removeCommandNodes() {
   for (const commandNode of commandNodes) {
     const commandButtonNode = commandNode.querySelector('span[role=button]')
 
-    commandButtonNode?.addEventListener('click', handleCommandClick)
-    commandButtonNode?.addEventListener('keypress', handleCommandKeyPress)
+    commandButtonNode?.removeEventListener('click', handleCommandClick)
+    commandButtonNode?.removeEventListener('keypress', handleCommandKeyPress)
 
     commandNode.remove()
   }
