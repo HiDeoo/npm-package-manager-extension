@@ -1,5 +1,5 @@
 import { createCommandNode, removeCommandNodes, updateCommandTitle } from '@/content/commands'
-import { hideElement, showElement } from '@/libs/html'
+import { hideElement, showElement, stickElement, unstickElement } from '@/libs/html'
 import { addOptionsListener, getOptions, type Options } from '@/libs/options'
 import { isValidPackageManager } from '@/libs/packageManager'
 
@@ -22,9 +22,9 @@ function setup(options: Options) {
 }
 
 function start({ packageManager }: Options) {
-  const { command, commandTitle } = getNpmElements()
+  const { command, commandTitle, sidebar } = getNpmElements()
 
-  if (!command || !commandTitle) {
+  if (!command || !commandTitle || !sidebar) {
     return
   }
 
@@ -33,20 +33,24 @@ function start({ packageManager }: Options) {
   updateCommandTitle(commandTitle, packageManager)
 
   commandTitle.after(createCommandNode(command, packageManager), createCommandNode(command, packageManager, true))
+
+  stickElement(sidebar)
 }
 
 function stop() {
   removeCommandNodes()
 
-  const { command, commandTitle } = getNpmElements()
+  const { command, commandTitle, sidebar } = getNpmElements()
 
-  if (!command || !commandTitle) {
+  if (!command || !commandTitle || !sidebar) {
     return
   }
 
   showElement(command)
 
   updateCommandTitle(commandTitle)
+
+  unstickElement(sidebar)
 }
 
 function getNpmElements() {
@@ -57,6 +61,7 @@ function getNpmElements() {
   return {
     command,
     commandTitle,
+    sidebar,
   }
 }
 
