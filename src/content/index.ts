@@ -1,4 +1,5 @@
-import { hideElement, showElement } from '@/libs/html'
+import { createCommandNode, removeCommandNodes, updateCommandTitle } from '@/content/commands'
+import { hideElement, showElement, stickElement, unstickElement } from '@/libs/html'
 import { addOptionsListener, getOptions, type Options } from '@/libs/options'
 import { isValidPackageManager } from '@/libs/packageManager'
 
@@ -20,31 +21,48 @@ function setup(options: Options) {
   start(options)
 }
 
-function start(options: Options) {
-  // FIXME(HiDeoo)
-  console.error('🚨 [index.ts:23] options', options)
+function start({ packageManager }: Options) {
+  const { command, commandTitle, sidebar } = getNpmElements()
 
-  const commandWrapper = getNpmCommandWrapper()
-
-  if (!commandWrapper) {
+  if (!command || !commandTitle || !sidebar) {
     return
   }
 
-  hideElement(commandWrapper)
+  hideElement(command)
+
+  updateCommandTitle(commandTitle, packageManager)
+
+  commandTitle.after(createCommandNode(command, packageManager), createCommandNode(command, packageManager, true))
+
+  stickElement(sidebar)
 }
 
 function stop() {
-  const commandWrapper = getNpmCommandWrapper()
+  removeCommandNodes()
 
-  if (!commandWrapper) {
+  const { command, commandTitle, sidebar } = getNpmElements()
+
+  if (!command || !commandTitle || !sidebar) {
     return
   }
 
-  showElement(commandWrapper)
+  showElement(command)
+
+  updateCommandTitle(commandTitle)
+
+  unstickElement(sidebar)
 }
 
-function getNpmCommandWrapper() {
-  return document.querySelector('span[role=button]')?.parentElement?.parentElement
+function getNpmElements() {
+  const command = document.querySelector('span[role=button]')?.parentElement?.parentElement
+  const sidebar = command?.parentElement
+  const commandTitle = sidebar?.firstChild
+
+  return {
+    command,
+    commandTitle,
+    sidebar,
+  }
 }
 
 getOptions()

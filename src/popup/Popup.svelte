@@ -20,7 +20,7 @@
 {#if options}
   <Header />
   <main>
-    <Select bind:value={options.packageManager} options={packageManagers} label="Choose your package manager" />
+    <Select options={packageManagers} label="Choose your package manager" bind:value={options.packageManager} />
     <Commands packageManager={options.packageManager} />
   </main>
   <Footer />

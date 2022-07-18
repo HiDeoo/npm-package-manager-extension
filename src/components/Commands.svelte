@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { isValidPackageManager, type PackageManager } from '@/libs/packageManager'
+  import { getPackageManagerCommand, isValidPackageManager, type PackageManager } from '@/libs/packageManager'
 
   export let packageManager: PackageManager
 </script>
@@ -7,8 +7,8 @@
 <section>
   {#if isValidPackageManager(packageManager)}
     <code>
-      <div>$ {packageManager} add -D {'<'}dependency{'>'}</div>
-      <div>$ {packageManager} add -D {'<'}dependency{'>'}</div>
+      <div>$ {getPackageManagerCommand(packageManager, '<dependency>')}</div>
+      <div>$ {getPackageManagerCommand(packageManager, '<dependency>', true)}</div>
     </code>
   {:else}
     <p>Npm Package Manager is<br />currently <strong>disabled</strong>.</p>
