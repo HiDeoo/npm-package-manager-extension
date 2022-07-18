@@ -21,30 +21,39 @@ function setup(options: Options) {
 }
 
 function start(options: Options) {
-  // FIXME(HiDeoo)
-  console.error('🚨 [index.ts:23] options', options)
+  const { command, commandTitle } = getNpmElements()
 
-  const commandWrapper = getNpmCommandWrapper()
-
-  if (!commandWrapper) {
+  if (!command || !commandTitle) {
     return
   }
 
-  hideElement(commandWrapper)
+  hideElement(command)
+
+  if (isValidPackageManager(options.packageManager)) {
+    commandTitle.textContent = `Install with ${options.packageManager}`
+  }
 }
 
 function stop() {
-  const commandWrapper = getNpmCommandWrapper()
+  const { command } = getNpmElements()
 
-  if (!commandWrapper) {
+  if (!command) {
     return
   }
 
-  showElement(commandWrapper)
+  showElement(command)
 }
 
-function getNpmCommandWrapper() {
-  return document.querySelector('span[role=button]')?.parentElement?.parentElement
+function getNpmElements() {
+  const command = document.querySelector('span[role=button]')?.parentElement?.parentElement
+  const sidebar = command?.parentElement
+  const commandTitle = sidebar?.firstChild
+
+  return {
+    sidebar,
+    command,
+    commandTitle,
+  }
 }
 
 getOptions()
