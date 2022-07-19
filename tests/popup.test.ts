@@ -24,13 +24,29 @@ test.describe('popup', () => {
 
       const [command, devCommand] = await getCommands(page)
 
-      if (packageManager === 'npm') {
-        expect(command).toBe('$ npm i <dependency>')
-        expect(devCommand).toBe('$ npm i -D <dependency>')
-      } else {
-        expect(command).toBe(`$ ${packageManager} add <dependency>`)
-        expect(devCommand).toBe(`$ ${packageManager} add -D <dependency>`)
+      let expectedCommand = `$ ${packageManager} add <dependency>`
+      let expectedDevCommand = `$ ${packageManager} add -D <dependency>`
+
+      switch (packageManager) {
+        case 'npm': {
+          expectedCommand = '$ npm i <dependency>'
+          expectedDevCommand = '$ npm i -D <dependency>'
+          break
+        }
+        case 'ni': {
+          expectedCommand = '$ ni <dependency>'
+          expectedDevCommand = '$ ni -D <dependency>'
+          break
+        }
+        case 'bun': {
+          expectedCommand = '$ bun add <dependency>'
+          expectedDevCommand = '$ bun add -d <dependency>'
+          break
+        }
       }
+
+      expect(command).toBe(expectedCommand)
+      expect(devCommand).toBe(expectedDevCommand)
     })
   }
 
