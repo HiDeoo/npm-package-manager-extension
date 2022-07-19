@@ -24,8 +24,6 @@
     <Commands packageManager={options.packageManager} />
   </main>
   <Footer />
-{:else}
-  <p>// TODO</p>
 {/if}
 
 <style>
