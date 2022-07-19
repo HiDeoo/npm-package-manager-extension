@@ -36,7 +36,6 @@ jobs:
 
       - name: Setup pnpm store cache
         uses: actions/cache@v3
-        id: pnpm-store-cache
         with:
           path: ${{ steps.pnpm-store-dir-path.outputs.dir }}
           key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
@@ -46,5 +45,20 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
+      - name: Set Playwright path
+        run: echo "PLAYWRIGHT_BROWSERS_PATH=$HOME/.cache/playwright-bin" >> $GITHUB_ENV
+
+      - name: Setup Playwright cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ env.PLAYWRIGHT_BROWSERS_PATH }}
+          key: ${{ runner.os }}-playwright
+
+      - name: Install Playwright browsers
+        run: pnpm playwright install chromium
+
       - name: Lint
         run: pnpm lint
+
+      - name: Test
+        run: pnpm test:ci
