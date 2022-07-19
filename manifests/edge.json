@@ -3,7 +3,8 @@
   "name": "Npm Package Manager",
   "version": "0.0.1",
   "action": {
-    "default_popup": "popup.html"
+    "default_popup": "popup.html",
+    "default_title": "Npm Package Manager"
   },
   "content_scripts": [
     {

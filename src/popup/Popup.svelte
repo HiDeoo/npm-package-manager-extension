@@ -6,15 +6,30 @@
   import Header from '@/components/Header.svelte'
   import Select from '@/components/Select.svelte'
   import { getOptions, setOptions, type Options } from '@/libs/options'
-  import { packageManagers } from '@/libs/packageManager'
+  import { isValidPackageManager, packageManagers, type PackageManager } from '@/libs/packageManager'
 
   let options: Options | undefined
 
   onMount(async () => {
     options = await getOptions()
+
+    updateTitle(options.packageManager)
   })
 
-  $: options && setOptions(options)
+  $: {
+    if (options) {
+      setOptions(options)
+      updateTitle(options.packageManager)
+    }
+  }
+
+  function updateTitle(packageManager: PackageManager) {
+    chrome.action.setTitle({
+      title: isValidPackageManager(packageManager)
+        ? `Npm Package Manager with ${packageManager}`
+        : 'Npm Package Manager',
+    })
+  }
 </script>
 
 {#if options}
