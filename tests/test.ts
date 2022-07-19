@@ -1,4 +1,6 @@
-import { test as baseTest, chromium } from '@playwright/test'
+import { test as baseTest, chromium, type Page } from '@playwright/test'
+
+import { EXT_TEST_ID } from './constants.js'
 
 export const test = baseTest.extend({
   // eslint-disable-next-line no-empty-pattern
@@ -15,3 +17,7 @@ export const test = baseTest.extend({
     await context.close()
   },
 })
+
+export function goToExtensionPage(page: Page) {
+  return page.goto(`chrome-extension://${EXT_TEST_ID}/popup.html`)
+}

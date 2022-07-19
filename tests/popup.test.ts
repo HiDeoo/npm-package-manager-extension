@@ -2,18 +2,17 @@ import { expect, type Page } from '@playwright/test'
 
 import { isValidPackageManager, packageManagers } from '../src/libs/packageManager.js'
 
-import { EXT_TEST_ID } from './constants.js'
-import { test } from './test.js'
+import { goToExtensionPage, test } from './test.js'
 
 const validPackageManagers = packageManagers.filter((packageManager) => isValidPackageManager(packageManager))
 
 test.describe('popup', () => {
   test('should have loaded the extension', async ({ page }) => {
-    await page.goto(`chrome-extension://${EXT_TEST_ID}/popup.html`)
+    await goToExtensionPage(page)
   })
 
   test('should default to pnpm', async ({ page }) => {
-    await page.goto(`chrome-extension://${EXT_TEST_ID}/popup.html`)
+    await goToExtensionPage(page)
 
     const [command, devCommand] = await getCommands(page)
 
@@ -23,7 +22,7 @@ test.describe('popup', () => {
 
   for (const packageManager of validPackageManagers) {
     test(`should support using ${packageManager}`, async ({ page }) => {
-      await page.goto(`chrome-extension://${EXT_TEST_ID}/popup.html`)
+      await goToExtensionPage(page)
 
       await page.locator('select').selectOption(packageManager)
 
@@ -40,7 +39,7 @@ test.describe('popup', () => {
   }
 
   test(`should support disabling the extesion`, async ({ page }) => {
-    await page.goto(`chrome-extension://${EXT_TEST_ID}/popup.html`)
+    await goToExtensionPage(page)
 
     await page.locator('select').selectOption('none')
 
@@ -50,7 +49,7 @@ test.describe('popup', () => {
   })
 
   test('should contains a link to report issues', async ({ context, page }) => {
-    await page.goto(`chrome-extension://${EXT_TEST_ID}/popup.html`)
+    await goToExtensionPage(page)
 
     const linkLocator = page.locator('a')
 
