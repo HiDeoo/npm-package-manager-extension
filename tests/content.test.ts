@@ -17,10 +17,26 @@ test.describe('content', () => {
       const command = await commandLocator.textContent()
       const devCommand = await devCommandLocator.textContent()
 
-      const expectedCommand =
-        packageManager === 'npm' ? `npm i ${npmTestPackage}` : `${packageManager} add ${npmTestPackage}`
-      const expectedDevCommand =
-        packageManager === 'npm' ? `npm i -D ${npmTestPackage}` : `${packageManager} add -D ${npmTestPackage}`
+      let expectedCommand = `${packageManager} add ${npmTestPackage}`
+      let expectedDevCommand = `${packageManager} add -D ${npmTestPackage}`
+
+      switch (packageManager) {
+        case 'npm': {
+          expectedCommand = `npm i ${npmTestPackage}`
+          expectedDevCommand = `npm i -D ${npmTestPackage}`
+          break
+        }
+        case 'ni': {
+          expectedCommand = `ni ${npmTestPackage}`
+          expectedDevCommand = `ni -D ${npmTestPackage}`
+          break
+        }
+        case 'bun': {
+          expectedCommand = `bun add ${npmTestPackage}`
+          expectedDevCommand = `bun add -d ${npmTestPackage}`
+          break
+        }
+      }
 
       expect(command).toBe(expectedCommand)
       expect(devCommand).toBe(expectedDevCommand)
