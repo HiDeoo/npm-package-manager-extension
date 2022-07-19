@@ -20,6 +20,7 @@
     "@tsconfig/svelte": "^3.0.0",
     "@types/chrome": "0.0.193",
     "@types/node": "16.11.45",
+    "clipboardy": "3.0.0",
     "eslint": "8.19.0",
     "eslint-plugin-svelte3": "4.0.0",
     "husky": "8.0.1",

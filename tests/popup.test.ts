@@ -1,10 +1,6 @@
 import { expect, type Page } from '@playwright/test'
 
-import { isValidPackageManager, packageManagers } from '../src/libs/packageManager.js'
-
-import { goToExtensionPage, test } from './test.js'
-
-const validPackageManagers = packageManagers.filter((packageManager) => isValidPackageManager(packageManager))
+import { goToExtensionPage, test, validPackageManagers } from './test.js'
 
 test.describe('popup', () => {
   test('should have loaded the extension', async ({ page }) => {

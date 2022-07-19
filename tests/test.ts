@@ -1,6 +1,12 @@
 import { test as baseTest, chromium, type Page } from '@playwright/test'
 
+import { isValidPackageManager, packageManagers } from '../src/libs/packageManager.js'
+
 import { EXT_TEST_ID } from './constants.js'
+
+export const npmTestPackage = 'vercel-env-push'
+
+export const validPackageManagers = packageManagers.filter((packageManager) => isValidPackageManager(packageManager))
 
 export const test = baseTest.extend({
   // eslint-disable-next-line no-empty-pattern
@@ -20,4 +26,8 @@ export const test = baseTest.extend({
 
 export function goToExtensionPage(page: Page) {
   return page.goto(`chrome-extension://${EXT_TEST_ID}/popup.html`)
+}
+
+export function goToNpmPage(page: Page) {
+  return page.goto(`https://www.npmjs.com/package/${npmTestPackage}`)
 }
