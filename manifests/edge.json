@@ -13,10 +13,9 @@
     }
   ],
   "icons": {
-    "16": "images/icons/icon_16.png",
-    "48": "images/icons/icon_48.png",
-    "128": "images/icons/icon_128.png",
-    "300": "images/icons/icon_300.png"
+    "16": "images/icons/16.png",
+    "48": "images/icons/48.png",
+    "128": "images/icons/128.png"
   },
   "permissions": ["storage"],
   "web_accessible_resources": [
