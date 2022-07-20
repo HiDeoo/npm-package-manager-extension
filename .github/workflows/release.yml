@@ -1,0 +1,19 @@
+name: release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  publish:
+    name: Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Draft new Release
+        uses: softprops/action-gh-release@v1
+        with:
+          draft: true
