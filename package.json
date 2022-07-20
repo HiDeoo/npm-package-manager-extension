@@ -3,7 +3,7 @@
   "description": "Browser extension adding support for multiple package managers to npmjs.com",
   "homepage": "https://github.com/HiDeoo/npm-package-manager-extension",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "module",
   "author": "HiDeoo",
   "license": "MIT",
