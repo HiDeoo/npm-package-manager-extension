@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Npm Package Manager",
   "description": "Multiple package managers support for npmjs.com",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "action": {
     "default_popup": "popup.html",
     "default_title": "Npm Package Manager"
