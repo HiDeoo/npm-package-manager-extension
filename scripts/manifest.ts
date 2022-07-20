@@ -7,11 +7,10 @@ import { EXT_TEST_KEY } from '../tests/constants'
 
 const args = process.argv.slice(2)
 
-assert(args.length > 0 && args.length <= 2, getHelp())
+assert(args.length < 2, getHelp())
 
 async function copyManifest() {
-  const target = args[0]
-  const isTest = args[1] === '--test'
+  const isTest = args[0] === '--test'
 
   try {
     const outputDirPath = join(getDirname(), '..', 'public')
@@ -20,7 +19,7 @@ async function copyManifest() {
 
     const outputPath = join(outputDirPath, 'manifest.json')
 
-    await copyFile(getManifestPath(target), outputPath)
+    await copyFile(getManifestPath(), outputPath)
 
     if (isTest) {
       // We explicitely set the key in the manifest.json file to make sure to obtain an unique ID for the extension that
@@ -29,13 +28,13 @@ async function copyManifest() {
       await setManifestTestKey(outputPath)
     }
   } catch (error) {
-    console.error(`Unable to copy manifest file for the '${target}' target.`)
+    console.error('Unable to copy manifest file.')
     console.error(error)
   }
 }
 
-function getManifestPath(target: string) {
-  return join(getDirname(), '..', 'manifests', `${target}.json`)
+function getManifestPath() {
+  return join(getDirname(), '..', 'manifest.json')
 }
 
 function getDirname(): string {
@@ -43,7 +42,7 @@ function getDirname(): string {
 }
 
 function getHelp() {
-  return 'Usage: npm-package-manager-extension <target> [--test]'
+  return 'Usage: npm-package-manager-extension [--test]'
 }
 
 async function ensureDir(path: string) {

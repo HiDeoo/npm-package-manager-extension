@@ -15,7 +15,6 @@
       "run_at": "document_idle"
     }
   ],
-  "default_locale": "en",
   "homepage_url": "https://github.com/HiDeoo/npm-package-manager-extension",
   "icons": {
     "16": "images/icons/16.png",
