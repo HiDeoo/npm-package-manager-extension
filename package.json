@@ -14,6 +14,7 @@
     "lint": "eslint . --max-warnings=0 && svelte-check --tsconfig ./tsconfig.json",
     "test": "pnpm manifest --test && vite build && playwright test",
     "test:ci": "xvfb-run pnpm test",
+    "zip": "pnpm build && tsx scripts/zip",
     "prepare": "husky install"
   },
   "devDependencies": {
@@ -38,7 +39,8 @@
     "tsx": "3.8.0",
     "typescript": "4.7.4",
     "vite": "3.0.2",
-    "vite-tsconfig-paths": "3.5.0"
+    "vite-tsconfig-paths": "3.5.0",
+    "zip-a-folder": "1.1.5"
   },
   "engines": {
     "node": ">=16.0.0"

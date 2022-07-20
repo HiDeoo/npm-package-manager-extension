@@ -1,9 +1,10 @@
 import assert from 'node:assert'
-import { access, copyFile, mkdir, readFile, writeFile } from 'node:fs/promises'
-import { dirname, join } from 'node:path'
-import { fileURLToPath } from 'node:url'
+import { copyFile, readFile, writeFile } from 'node:fs/promises'
+import { join } from 'node:path'
 
 import { EXT_TEST_KEY } from '../tests/constants'
+
+import { ensureDir, getDirname } from './utils'
 
 const args = process.argv.slice(2)
 
@@ -37,20 +38,8 @@ function getManifestPath() {
   return join(getDirname(), '..', 'manifest.json')
 }
 
-function getDirname(): string {
-  return dirname(fileURLToPath(import.meta.url))
-}
-
 function getHelp() {
   return 'Usage: npm-package-manager-extension [--test]'
-}
-
-async function ensureDir(path: string) {
-  try {
-    await access(path)
-  } catch {
-    await mkdir(path)
-  }
 }
 
 async function setManifestTestKey(path: string) {
