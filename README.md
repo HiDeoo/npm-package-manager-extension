@@ -34,7 +34,7 @@ A Chrome and Edge browser extension adding support for multiple package managers
 
 ## Installation
 
-You can install the extension directly from the [Chrome Web Store](https://chrome.google.com/webstore/category/extensions) or the [Microsoft Edge Add-ons Marketplace](https://microsoftedge.microsoft.com/addons/Microsoft-Edge-Extensions-Home).
+You can install the extension directly from the [Chrome Web Store](https://chrome.google.com/webstore/detail/npm-package-manager/mkflcfbfnijaofdeeflecnjlooefmcka) or the [Microsoft Edge Add-ons Marketplace](https://microsoftedge.microsoft.com/addons/detail/npm-package-manager/oogocgnfebpilcfmlgdencdmemicdaoo).
 
 ## License
 
