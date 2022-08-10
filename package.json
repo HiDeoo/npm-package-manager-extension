@@ -11,7 +11,7 @@
     "dev": "pnpm manifest && vite build --watch",
     "build": "pnpm manifest && vite build",
     "manifest": "tsx scripts/manifest",
-    "lint": "eslint . --max-warnings=0 && svelte-check --tsconfig ./tsconfig.json",
+    "lint": "prettier -c . && eslint . --max-warnings=0 && svelte-check --tsconfig ./tsconfig.json",
     "test": "pnpm manifest --test && vite build && playwright test",
     "zip": "pnpm build && tsx scripts/zip",
     "prepare": "husky install"
