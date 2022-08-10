@@ -1,20 +1,37 @@
 import { cloneElement, showElement } from '@/libs/html'
 import { getPackageManagerCommand, type PackageManager } from '@/libs/packageManager'
 
+const npmManagerTitleClass = 'npm-package-manager-title'
 const npmManagerCommandClass = 'npm-package-manager-command'
 
 export function updateCommandTitle(commandTitle: ChildNode, packageManager?: PackageManager) {
   commandTitle.textContent = packageManager ? `Install with ${packageManager}` : 'Install'
 }
 
-export function createCommandNode(command: HTMLElement, packageManager: PackageManager, dev = false) {
+export function createTitleNode(titleNode: ChildNode, title: string) {
+  const newTitle = cloneElement(titleNode as HTMLElement)
+
+  showElement(newTitle)
+  newTitle.classList.add(npmManagerTitleClass)
+
+  newTitle.textContent = title
+
+  return newTitle
+}
+
+export function createCommandNode(
+  command: HTMLElement,
+  packageManager: PackageManager,
+  dev = false,
+  dependencyName?: string
+) {
   const newCommand = cloneElement(command)
 
   showElement(newCommand)
   newCommand.classList.add(npmManagerCommandClass)
 
   const commandButtonNode = newCommand.querySelector('span[role=button]')
-  const dependency = commandButtonNode?.textContent?.split(' ')?.at(-1)
+  const dependency = dependencyName ?? commandButtonNode?.textContent?.split(' ')?.at(-1)
 
   if (commandButtonNode && dependency) {
     commandButtonNode.textContent = getPackageManagerCommand(packageManager, dependency, dev)
@@ -24,6 +41,14 @@ export function createCommandNode(command: HTMLElement, packageManager: PackageM
   }
 
   return newCommand
+}
+
+export function removeTitleNodes() {
+  const titleNodes = document.querySelectorAll(`.${npmManagerTitleClass}`)
+
+  for (const titleNode of titleNodes) {
+    titleNode.remove()
+  }
 }
 
 export function removeCommandNodes() {

@@ -1,4 +1,10 @@
-import { createCommandNode, removeCommandNodes, updateCommandTitle } from '@/content/commands'
+import {
+  createCommandNode,
+  createTitleNode,
+  removeCommandNodes,
+  removeTitleNodes,
+  updateCommandTitle,
+} from '@/content/commands'
 import { hideElement, showElement, stickElement, unstickElement } from '@/libs/html'
 import { addOptionsListener, getOptions, type Options } from '@/libs/options'
 import { isValidPackageManager } from '@/libs/packageManager'
@@ -32,12 +38,24 @@ function start({ packageManager }: Options) {
 
   updateCommandTitle(commandTitle, packageManager)
 
-  commandTitle.after(createCommandNode(command, packageManager), createCommandNode(command, packageManager, true))
+  const newElements = [createCommandNode(command, packageManager), createCommandNode(command, packageManager, true)]
+
+  const typeScriptDeclarations = getTypeScriptDeclarations()
+
+  if (typeScriptDeclarations) {
+    newElements.push(
+      createTitleNode(commandTitle, `Install TypeScript declarations with ${packageManager}`),
+      createCommandNode(command, packageManager, true, typeScriptDeclarations)
+    )
+  }
+
+  commandTitle.after(...newElements)
 
   stickElement(sidebar)
 }
 
 function stop() {
+  removeTitleNodes()
   removeCommandNodes()
 
   const { command, commandTitle, sidebar } = getNpmElements()
@@ -63,6 +81,16 @@ function getNpmElements() {
     commandTitle,
     sidebar,
   }
+}
+
+function getTypeScriptDeclarations() {
+  const declarationElement = document.querySelector('main h2 > div[data-nosnippet=true]')?.firstChild
+
+  if (!(declarationElement instanceof HTMLAnchorElement)) {
+    return
+  }
+
+  return declarationElement.href.replace('https://www.npmjs.com/package/', '')
 }
 
 getOptions()

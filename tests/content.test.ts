@@ -12,7 +12,7 @@ test.describe('content', () => {
       await goToNpmPage(page)
       await page.waitForSelector(`h3:has-text("Install with ${packageManager}")`)
 
-      const [commandLocator, devCommandLocator, oldCommandLocator] = await getCommandLocators(page)
+      const [commandLocator, devCommandLocator, oldCommandLocator] = getCommandLocators(page)
 
       const command = await commandLocator.textContent()
       const devCommand = await devCommandLocator.textContent()
@@ -51,7 +51,41 @@ test.describe('content', () => {
     })
   }
 
-  test(`should support not show any specific command when disabled`, async ({ page }) => {
+  test('should show the TypeScript declarations command for external declarations', async ({ page }) => {
+    const packageManager = 'pnpm'
+
+    await goToExtensionPage(page)
+    await page.locator('select').selectOption(packageManager)
+
+    await goToNpmPage(page, 'lodash')
+    await page.waitForSelector(`h3:has-text("Install TypeScript declarations with ${packageManager}")`)
+
+    const locators = getCommandLocators(page)
+    const tsDeclarationsLocator = locators[3]
+    const tsDeclarationsCommand = await tsDeclarationsLocator.textContent()
+
+    expect(tsDeclarationsCommand).toBe('pnpm add -D @types/lodash')
+
+    await tsDeclarationsLocator.click()
+    expect(await clipboard.read()).toBe(tsDeclarationsCommand)
+  })
+
+  test('should not show the TypeScript declarations command for built-in declarations', async ({ page }) => {
+    const packageManager = 'pnpm'
+
+    await goToExtensionPage(page)
+    await page.locator('select').selectOption(packageManager)
+
+    await goToNpmPage(page, 'cac')
+    await page.waitForSelector(`h3:has-text("Install with ${packageManager}")`)
+
+    await expect(page.locator(`h3:has-text("Install TypeScript declarations with ${packageManager}")`)).toHaveCount(0)
+
+    // New command, new dev command & old command
+    await expect(page.locator('span[role=button]')).toHaveCount(3)
+  })
+
+  test(`should not show any specific command when disabled`, async ({ page }) => {
     await goToExtensionPage(page)
     await page.locator('select').selectOption('none')
 
@@ -66,12 +100,13 @@ test.describe('content', () => {
   })
 })
 
-async function getCommandLocators(page: Page) {
+function getCommandLocators(page: Page) {
   const commandsLocator = page.locator('span[role=button]')
 
   const command = commandsLocator.first()
   const devCommand = commandsLocator.nth(1)
+  const tsDeclarationsCommand = commandsLocator.nth(2)
   const oldCommand = commandsLocator.last()
 
-  return [command, devCommand, oldCommand]
+  return [command, devCommand, oldCommand, tsDeclarationsCommand]
 }
