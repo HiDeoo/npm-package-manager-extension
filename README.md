@@ -29,6 +29,7 @@ A Chrome and Edge browser extension adding support for multiple package managers
   - [ni](https://github.com/antfu/ni)
   - [bun](https://bun.sh/)
 - Display both the command to install a package as dependency or development dependency.
+- Display an extra command to install TypeScript declarations for packages having external declarations.
 - Remove the layout shift of the entire page when copying a command.
 - Pin the sidebar so it is always visible even when scrolling down long package descriptions.
 
