@@ -13,7 +13,6 @@
     "manifest": "tsx scripts/manifest",
     "lint": "eslint . --max-warnings=0 && svelte-check --tsconfig ./tsconfig.json",
     "test": "pnpm manifest --test && vite build && playwright test",
-    "test:ci": "xvfb-run pnpm test",
     "zip": "pnpm build && tsx scripts/zip",
     "prepare": "husky install"
   },
