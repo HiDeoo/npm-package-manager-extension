@@ -8,11 +8,14 @@
     "default_title": "Npm Package Manager"
   },
   "author": "HiDeoo",
+  "background": {
+    "service_worker": "sw.js"
+  },
   "content_scripts": [
     {
       "matches": ["https://www.npmjs.com/package/*"],
       "js": ["loader.js"],
-      "run_at": "document_idle"
+      "run_at": "document_start"
     }
   ],
   "homepage_url": "https://github.com/HiDeoo/npm-package-manager-extension",
@@ -22,7 +25,7 @@
     "48": "images/icons/48.png",
     "128": "images/icons/128.png"
   },
-  "permissions": ["storage"],
+  "permissions": ["storage", "webNavigation"],
   "web_accessible_resources": [
     {
       "matches": ["https://www.npmjs.com/*"],

@@ -9,25 +9,45 @@ import { hideElement, showElement, stickElement, unstickElement } from '@/libs/h
 import { addOptionsListener, getOptions, type Options } from '@/libs/options'
 import { isValidPackageManager } from '@/libs/packageManager'
 
-function setup(options: Options) {
-  addOptionsListener((optionChanges) => {
-    if (isValidPackageManager(optionChanges.packageManager.oldValue)) {
-      stop()
+let isConfigured = false
+
+export async function run() {
+  configure()
+
+  try {
+    const options = await getOptions()
+
+    if (!isValidPackageManager(options.packageManager)) {
+      return
     }
 
-    if (isValidPackageManager(optionChanges.packageManager.newValue)) {
-      start({ packageManager: optionChanges.packageManager.newValue })
-    }
-  })
+    renderExtension(options)
+  } catch (error) {
+    console.error(`Unable to retrieve Npm Package Manager extension options: ${error}`)
+  }
+}
 
-  if (!isValidPackageManager(options.packageManager)) {
+function configure() {
+  if (isConfigured) {
     return
   }
 
-  start(options)
+  addOptionsListener((optionChanges) => {
+    renderExtension({ packageManager: optionChanges.packageManager.newValue })
+  })
+
+  isConfigured = true
 }
 
-function start({ packageManager }: Options) {
+function renderExtension(options: Options) {
+  hideExtension()
+
+  if (isValidPackageManager(options.packageManager)) {
+    showExtension(options)
+  }
+}
+
+function showExtension({ packageManager }: Options) {
   const { command, commandTitle, sidebar } = getNpmElements()
 
   if (!command || !commandTitle || !sidebar) {
@@ -54,7 +74,7 @@ function start({ packageManager }: Options) {
   stickElement(sidebar)
 }
 
-function stop() {
+function hideExtension() {
   removeTitleNodes()
   removeCommandNodes()
 
@@ -92,9 +112,3 @@ function getTypeScriptDeclarations() {
 
   return declarationElement.href.replace('https://www.npmjs.com/package/', '')
 }
-
-getOptions()
-  .then(setup)
-  .catch((error) => {
-    console.error(`Unable to retrieve Npm Package Manager extension options: ${error}`)
-  })
