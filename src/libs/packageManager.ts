@@ -12,14 +12,19 @@ export function isValidPackageManager(packageManager: PackageManager) {
   return packageManager !== 'none'
 }
 
-export function getPackageManagerCommand(packageManager: PackageManager, dependency: string, dev = false) {
+export function getPackageManagerCommand(
+  packageManager: PackageManager,
+  dependency: string,
+  dev: boolean,
+  version?: string | undefined
+) {
   if (packageManager === 'none') {
     return ''
   }
 
   const command = packageManagerCommands[packageManager]
 
-  return `${command.text} ${dev ? `${command.devOption} ` : ''}${dependency}`
+  return `${command.text} ${dev ? `${command.devOption} ` : ''}${dependency}${version ? `@${version}` : ''}`
 }
 
 export type PackageManager = typeof packageManagers[number]

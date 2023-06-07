@@ -9,28 +9,54 @@ import { hideElement, showElement, stickElement, unstickElement } from '@/libs/h
 import { addOptionsListener, getOptions, type Options } from '@/libs/options'
 import { isValidPackageManager } from '@/libs/packageManager'
 
-function setup(options: Options) {
-  addOptionsListener((optionChanges) => {
-    if (isValidPackageManager(optionChanges.packageManager.oldValue)) {
-      stop()
+const urlPathnameVersionRegex = /\/v\/(?<version>[^/]+)$/
+
+let isConfigured = false
+let version: string | undefined
+
+export async function run(url: URL) {
+  const matches = url.pathname.match(urlPathnameVersionRegex)
+  version = matches?.groups?.version && matches.groups.version.length > 0 ? matches.groups.version : undefined
+
+  configure()
+
+  try {
+    const options = await getOptions()
+
+    if (!isValidPackageManager(options.packageManager)) {
+      return
     }
 
-    if (isValidPackageManager(optionChanges.packageManager.newValue)) {
-      start({ packageManager: optionChanges.packageManager.newValue })
-    }
-  })
+    renderExtension(options)
+  } catch (error) {
+    console.error(`Unable to retrieve Npm Package Manager extension options: ${error}`)
+  }
+}
 
-  if (!isValidPackageManager(options.packageManager)) {
+function configure() {
+  if (isConfigured) {
     return
   }
 
-  start(options)
+  addOptionsListener((optionChanges) => {
+    renderExtension({ packageManager: optionChanges.packageManager.newValue })
+  })
+
+  isConfigured = true
 }
 
-function start({ packageManager }: Options) {
-  const { command, commandTitle, sidebar } = getNpmElements()
+function renderExtension(options: Options) {
+  hideExtension()
 
-  if (!command || !commandTitle || !sidebar) {
+  if (isValidPackageManager(options.packageManager)) {
+    showExtension(options)
+  }
+}
+
+function showExtension({ packageManager }: Options) {
+  const { command, commandTitle, dependency, sidebar } = getNpmElements()
+
+  if (!command || !commandTitle || !sidebar || !dependency || !dependency.textContent) {
     return
   }
 
@@ -38,14 +64,17 @@ function start({ packageManager }: Options) {
 
   updateCommandTitle(commandTitle, packageManager)
 
-  const newElements = [createCommandNode(command, packageManager), createCommandNode(command, packageManager, true)]
+  const newElements = [
+    createCommandNode(command, packageManager, dependency.textContent, false, version),
+    createCommandNode(command, packageManager, dependency.textContent, true, version),
+  ]
 
   const typeScriptDeclarations = getTypeScriptDeclarations()
 
   if (typeScriptDeclarations) {
     newElements.push(
       createTitleNode(commandTitle, `Install TypeScript declarations with ${packageManager}`),
-      createCommandNode(command, packageManager, true, typeScriptDeclarations)
+      createCommandNode(command, packageManager, typeScriptDeclarations, true)
     )
   }
 
@@ -54,7 +83,7 @@ function start({ packageManager }: Options) {
   stickElement(sidebar)
 }
 
-function stop() {
+function hideExtension() {
   removeTitleNodes()
   removeCommandNodes()
 
@@ -73,12 +102,14 @@ function stop() {
 
 function getNpmElements() {
   const command = document.querySelector('span[role=button]')?.parentElement?.parentElement
+  const dependency = document.querySelector('main > div > div > h2 > span')
   const sidebar = command?.parentElement
   const commandTitle = sidebar?.firstChild
 
   return {
     command,
     commandTitle,
+    dependency,
     sidebar,
   }
 }
@@ -92,9 +123,3 @@ function getTypeScriptDeclarations() {
 
   return declarationElement.href.replace('https://www.npmjs.com/package/', '')
 }
-
-getOptions()
-  .then(setup)
-  .catch((error) => {
-    console.error(`Unable to retrieve Npm Package Manager extension options: ${error}`)
-  })

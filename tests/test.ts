@@ -28,6 +28,6 @@ export function goToExtensionPage(page: Page) {
   return page.goto(`chrome-extension://${EXT_TEST_ID}/popup.html`)
 }
 
-export function goToNpmPage(page: Page, packageName = npmTestPackage) {
-  return page.goto(`https://www.npmjs.com/package/${packageName}`)
+export function goToNpmPage(page: Page, packageName = npmTestPackage, version?: string) {
+  return page.goto(`https://www.npmjs.com/package/${packageName}${version ? `/v/${version}` : ''}`)
 }

@@ -11,11 +11,27 @@ export default defineConfig({
         content: resolve(__dirname, 'src', 'content', 'index.ts'),
         loader: resolve(__dirname, 'src', 'content', 'loader.ts'),
         popup: resolve(__dirname, 'popup.html'),
+        sw: resolve(__dirname, 'src', 'sw', 'index.ts'),
       },
       output: {
-        entryFileNames: ({ name }) =>
-          name === 'content' ? 'content.js' : name === 'loader' ? 'loader.js' : 'assets/[name].[hash].js',
+        entryFileNames: ({ name }) => {
+          switch (name) {
+            case 'content': {
+              return 'content.js'
+            }
+            case 'loader': {
+              return 'loader.js'
+            }
+            case 'sw': {
+              return 'sw.js'
+            }
+            default: {
+              return 'assets/[name].[hash].js'
+            }
+          }
+        },
       },
+      preserveEntrySignatures: 'strict',
     },
   },
   plugins: [tsconfigPaths(), svelte()],
