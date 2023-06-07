@@ -51,6 +51,76 @@ test.describe('content', () => {
     })
   }
 
+  test('should use the exact version in the commands when loading a specific version page', async ({ page }) => {
+    const version = '18.2.0'
+    const packageManager = 'pnpm'
+
+    await goToExtensionPage(page)
+    await page.locator('select').selectOption(packageManager)
+
+    await goToNpmPage(page, 'react', version)
+    await page.waitForLoadState('networkidle')
+
+    const [commandLocator, devCommandLocator, , tsDeclarationsLocator] = getCommandLocators(page)
+
+    const command = await commandLocator.textContent()
+    const devCommand = await devCommandLocator.textContent()
+    const tsDeclarationsCommand = await tsDeclarationsLocator.textContent()
+
+    const expectedCommand = `pnpm add react@${version}`
+    expect(command).toBe(expectedCommand)
+    await commandLocator.click()
+    expect(await clipboard.read()).toBe(expectedCommand)
+
+    const expectedDevCommand = `pnpm add -D react@${version}`
+    expect(devCommand).toBe(expectedDevCommand)
+    await devCommandLocator.click()
+    expect(await clipboard.read()).toBe(expectedDevCommand)
+
+    const expectedTsDeclarationsCommand = 'pnpm add -D @types/react'
+    expect(tsDeclarationsCommand).toBe(expectedTsDeclarationsCommand)
+    await tsDeclarationsLocator.click()
+    expect(await clipboard.read()).toBe(expectedTsDeclarationsCommand)
+  })
+
+  test('should use the exact version in the commands when navigating to a specific version page', async ({ page }) => {
+    const version = '18.2.0'
+    const packageManager = 'pnpm'
+
+    await goToExtensionPage(page)
+    await page.locator('select').selectOption(packageManager)
+
+    await goToNpmPage(page, 'react')
+    await page.waitForLoadState('networkidle')
+
+    await page.click('a[aria-controls="tabpanel-versions"]')
+    await expect(page.getByRole('heading', { name: 'Current Tags' })).toBeVisible()
+
+    await page.click(`a[title="${version}"]`)
+    await page.waitForSelector('a[aria-controls="tabpanel-readme"][aria-selected="true"]')
+
+    const [commandLocator, devCommandLocator, , tsDeclarationsLocator] = getCommandLocators(page)
+
+    const command = await commandLocator.textContent()
+    const devCommand = await devCommandLocator.textContent()
+    const tsDeclarationsCommand = await tsDeclarationsLocator.textContent()
+
+    const expectedCommand = `pnpm add react@${version}`
+    expect(command).toBe(expectedCommand)
+    await commandLocator.click()
+    expect(await clipboard.read()).toBe(expectedCommand)
+
+    const expectedDevCommand = `pnpm add -D react@${version}`
+    expect(devCommand).toBe(expectedDevCommand)
+    await devCommandLocator.click()
+    expect(await clipboard.read()).toBe(expectedDevCommand)
+
+    const expectedTsDeclarationsCommand = 'pnpm add -D @types/react'
+    expect(tsDeclarationsCommand).toBe(expectedTsDeclarationsCommand)
+    await tsDeclarationsLocator.click()
+    expect(await clipboard.read()).toBe(expectedTsDeclarationsCommand)
+  })
+
   test('should show the TypeScript declarations command for external declarations', async ({ page }) => {
     const packageManager = 'pnpm'
 

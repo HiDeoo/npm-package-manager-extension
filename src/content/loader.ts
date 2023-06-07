@@ -10,7 +10,7 @@ chrome.runtime.onMessage.addListener(async (request) => {
   try {
     const extension: typeof import('./index') = await import(src)
 
-    await extension.run()
+    await extension.run(new URL(request.url))
   } catch (error) {
     console.error(`Unable to load extension: ${error}`)
   }

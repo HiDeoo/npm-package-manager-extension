@@ -3,7 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@hideoo/eslint-config': 0.2.3
   '@hideoo/prettier-config': 0.0.1
-  '@playwright/test': 1.23.4
+  '@playwright/test': 1.34.3
   '@sveltejs/vite-plugin-svelte': 1.0.1
   '@tsconfig/svelte': 3.0.0
   '@types/chrome': 0.0.193
@@ -28,7 +28,7 @@ specifiers:
 devDependencies:
   '@hideoo/eslint-config': 0.2.3_4x5o4skxv6sl53vpwefgt23khm
   '@hideoo/prettier-config': 0.0.1
-  '@playwright/test': 1.23.4
+  '@playwright/test': 1.34.3
   '@sveltejs/vite-plugin-svelte': 1.0.1_svelte@3.49.0+vite@3.0.2
   '@tsconfig/svelte': 3.0.0
   '@types/chrome': 0.0.193
@@ -261,13 +261,15 @@ packages:
       tslib: 2.4.0
     dev: true
 
-  /@playwright/test/1.23.4:
-    resolution: {integrity: sha512-iIsoMJDS/lyuhw82FtcV/B3PXikgVD3hNe5hyvOpRM0uRr1OIpN3LgPeRbBjhzBWmyf6RgRg5fqK5sVcpA03yA==}
+  /@playwright/test/1.34.3:
+    resolution: {integrity: sha512-zPLef6w9P6T/iT6XDYG3mvGOqOyb6eHaV9XtkunYs0+OzxBtrPAAaHotc0X+PJ00WPPnLfFBTl7mf45Mn8DBmw==}
     engines: {node: '>=14'}
     hasBin: true
     dependencies:
-      '@types/node': 18.0.4
-      playwright-core: 1.23.4
+      '@types/node': 16.11.45
+      playwright-core: 1.34.3
+    optionalDependencies:
+      fsevents: 2.3.2
     dev: true
 
   /@rollup/pluginutils/4.2.1:
@@ -338,10 +340,6 @@ packages:
     resolution: {integrity: sha512-3rKg/L5x0rofKuuUt5zlXzOnKyIHXmIu5R8A0TuNDMF2062/AOIDBciFIjToLEJ/9F9DzkHNot+BpNsMI1OLdQ==}
     dev: true
 
-  /@types/node/18.0.4:
-    resolution: {integrity: sha512-M0+G6V0Y4YV8cqzHssZpaNCqvYwlCiulmm0PwpNLF55r/+cT8Ol42CHRU1SEaYFH2rTwiiE1aYg/2g2rrtGdPA==}
-    dev: true
-
   /@types/normalize-package-data/2.4.1:
     resolution: {integrity: sha512-Gj7cI7z+98M282Tqmp2K5EIsoouUEzbBJhQQzDE3jSIRk6r9gsz0oUokqIUR4u1R3dMHo0pDHM7sNOHyhulypw==}
     dev: true
@@ -353,7 +351,7 @@ packages:
   /@types/sass/1.43.1:
     resolution: {integrity: sha512-BPdoIt1lfJ6B7rw35ncdwBZrAssjcwzI5LByIrYs+tpXlj/CAkuVdRsgZDdP4lq5EjyWzwxZCqAoFyHKFwp32g==}
     dependencies:
-      '@types/node': 18.0.4
+      '@types/node': 16.11.45
     dev: true
 
   /@typescript-eslint/eslint-plugin/5.30.0_ppqciyaexhetens5nxv2w2zeb4:
@@ -2594,8 +2592,8 @@ packages:
     hasBin: true
     dev: true
 
-  /playwright-core/1.23.4:
-    resolution: {integrity: sha512-h5V2yw7d8xIwotjyNrkLF13nV9RiiZLHdXeHo+nVJIYGVlZ8U2qV0pMxNJKNTvfQVT0N8/A4CW6/4EW2cOcTiA==}
+  /playwright-core/1.34.3:
+    resolution: {integrity: sha512-2pWd6G7OHKemc5x1r1rp8aQcpvDh7goMBZlJv6Co5vCNLVcQJdhxRL09SGaY6HcyHH9aT4tiynZabMofVasBYw==}
     engines: {node: '>=14'}
     hasBin: true
     dev: true

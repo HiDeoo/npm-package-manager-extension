@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## Unreleased
+
+### 🚀 Features
+
+- Use package version in install commands when visiting a specific version package page.
+
 ## v0.2.0
 
 ### 🚀 Features

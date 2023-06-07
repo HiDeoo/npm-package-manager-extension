@@ -7,7 +7,7 @@
 <section>
   {#if isValidPackageManager(packageManager)}
     <code>
-      <div>$ {getPackageManagerCommand(packageManager, '<dependency>')}</div>
+      <div>$ {getPackageManagerCommand(packageManager, '<dependency>', false)}</div>
       <div>$ {getPackageManagerCommand(packageManager, '<dependency>', true)}</div>
     </code>
   {:else}

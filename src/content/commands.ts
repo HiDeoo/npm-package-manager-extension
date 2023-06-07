@@ -22,8 +22,9 @@ export function createTitleNode(titleNode: ChildNode, title: string) {
 export function createCommandNode(
   command: HTMLElement,
   packageManager: PackageManager,
-  dev = false,
-  dependencyName?: string
+  dependency: string,
+  dev: boolean,
+  version?: string | undefined
 ) {
   const newCommand = cloneElement(command)
 
@@ -31,10 +32,9 @@ export function createCommandNode(
   newCommand.classList.add(npmManagerCommandClass)
 
   const commandButtonNode = newCommand.querySelector('span[role=button]')
-  const dependency = dependencyName ?? commandButtonNode?.textContent?.split(' ')?.at(-1)
 
-  if (commandButtonNode && dependency) {
-    commandButtonNode.textContent = getPackageManagerCommand(packageManager, dependency, dev)
+  if (commandButtonNode) {
+    commandButtonNode.textContent = getPackageManagerCommand(packageManager, dependency, dev, version)
 
     commandButtonNode.addEventListener('click', handleCommandClick)
     commandButtonNode.addEventListener('keypress', handleCommandKeyPress)

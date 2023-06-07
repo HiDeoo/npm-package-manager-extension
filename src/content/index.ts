@@ -9,9 +9,15 @@ import { hideElement, showElement, stickElement, unstickElement } from '@/libs/h
 import { addOptionsListener, getOptions, type Options } from '@/libs/options'
 import { isValidPackageManager } from '@/libs/packageManager'
 
-let isConfigured = false
+const urlPathnameVersionRegex = /\/v\/(?<version>[^/]+)$/
 
-export async function run() {
+let isConfigured = false
+let version: string | undefined
+
+export async function run(url: URL) {
+  const matches = url.pathname.match(urlPathnameVersionRegex)
+  version = matches?.groups?.version && matches.groups.version.length > 0 ? matches.groups.version : undefined
+
   configure()
 
   try {
@@ -48,9 +54,9 @@ function renderExtension(options: Options) {
 }
 
 function showExtension({ packageManager }: Options) {
-  const { command, commandTitle, sidebar } = getNpmElements()
+  const { command, commandTitle, dependency, sidebar } = getNpmElements()
 
-  if (!command || !commandTitle || !sidebar) {
+  if (!command || !commandTitle || !sidebar || !dependency || !dependency.textContent) {
     return
   }
 
@@ -58,14 +64,17 @@ function showExtension({ packageManager }: Options) {
 
   updateCommandTitle(commandTitle, packageManager)
 
-  const newElements = [createCommandNode(command, packageManager), createCommandNode(command, packageManager, true)]
+  const newElements = [
+    createCommandNode(command, packageManager, dependency.textContent, false, version),
+    createCommandNode(command, packageManager, dependency.textContent, true, version),
+  ]
 
   const typeScriptDeclarations = getTypeScriptDeclarations()
 
   if (typeScriptDeclarations) {
     newElements.push(
       createTitleNode(commandTitle, `Install TypeScript declarations with ${packageManager}`),
-      createCommandNode(command, packageManager, true, typeScriptDeclarations)
+      createCommandNode(command, packageManager, typeScriptDeclarations, true)
     )
   }
 
@@ -93,12 +102,14 @@ function hideExtension() {
 
 function getNpmElements() {
   const command = document.querySelector('span[role=button]')?.parentElement?.parentElement
+  const dependency = document.querySelector('main > div > div > h2 > span')
   const sidebar = command?.parentElement
   const commandTitle = sidebar?.firstChild
 
   return {
     command,
     commandTitle,
+    dependency,
     sidebar,
   }
 }
