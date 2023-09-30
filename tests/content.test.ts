@@ -96,7 +96,7 @@ test.describe('content', () => {
     await page.click('a[aria-controls="tabpanel-versions"]')
     await expect(page.getByRole('heading', { name: 'Current Tags' })).toBeVisible()
 
-    await page.click(`a[title="${version}"]`)
+    await page.click(`a[aria-label="${version}"]`)
     await page.waitForSelector('a[aria-controls="tabpanel-readme"][aria-selected="true"]')
 
     const [commandLocator, devCommandLocator, , tsDeclarationsLocator] = getCommandLocators(page)
@@ -152,7 +152,7 @@ test.describe('content', () => {
     await expect(page.locator(`h3:has-text("Install TypeScript declarations with ${packageManager}")`)).toHaveCount(0)
 
     // New command, new dev command & old command
-    await expect(page.locator('span[role=button]')).toHaveCount(3)
+    await expect(page.locator('code > button')).toHaveCount(3)
   })
 
   test(`should not show any specific command when disabled`, async ({ page }) => {
@@ -162,7 +162,7 @@ test.describe('content', () => {
     await goToNpmPage(page)
     await page.waitForSelector(`h3:has-text("Install")`)
 
-    const commandLocator = page.locator('span[role=button]')
+    const commandLocator = page.locator('code > button')
 
     expect(await commandLocator.count()).toBe(1)
     expect(await commandLocator.isVisible()).toBe(true)
@@ -171,7 +171,7 @@ test.describe('content', () => {
 })
 
 function getCommandLocators(page: Page) {
-  const commandsLocator = page.locator('span[role=button]')
+  const commandsLocator = page.locator('code > button')
 
   const command = commandsLocator.first()
   const devCommand = commandsLocator.nth(1)
