@@ -31,7 +31,7 @@ export function createCommandNode(
   showElement(newCommand)
   newCommand.classList.add(npmManagerCommandClass)
 
-  const commandButtonNode = newCommand.querySelector('span[role=button]')
+  const commandButtonNode = newCommand.querySelector('button')
 
   if (commandButtonNode) {
     commandButtonNode.textContent = getPackageManagerCommand(packageManager, dependency, dev, version)
@@ -55,7 +55,7 @@ export function removeCommandNodes() {
   const commandNodes = document.querySelectorAll(`.${npmManagerCommandClass}`)
 
   for (const commandNode of commandNodes) {
-    const commandButtonNode = commandNode.querySelector('span[role=button]')
+    const commandButtonNode = commandNode.querySelector('button')
 
     commandButtonNode?.removeEventListener('click', handleCommandClick)
     commandButtonNode?.removeEventListener('keypress', handleCommandKeyPress)
