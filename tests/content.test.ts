@@ -152,7 +152,7 @@ test.describe('content', () => {
     await expect(page.locator(`h3:has-text("Install TypeScript declarations with ${packageManager}")`)).toHaveCount(0)
 
     // New command, new dev command & old command
-    await expect(page.locator('code > button')).toHaveCount(3)
+    await expect(page.locator('code + button')).toHaveCount(3)
   })
 
   test(`should not show any specific command when disabled`, async ({ page }) => {
@@ -162,7 +162,7 @@ test.describe('content', () => {
     await goToNpmPage(page)
     await page.waitForSelector(`h3:has-text("Install")`)
 
-    const commandLocator = page.locator('code > button')
+    const commandLocator = page.locator('div:has(> p > code + button)')
 
     expect(await commandLocator.count()).toBe(1)
     expect(await commandLocator.isVisible()).toBe(true)
@@ -171,7 +171,7 @@ test.describe('content', () => {
 })
 
 function getCommandLocators(page: Page) {
-  const commandsLocator = page.locator('code > button')
+  const commandsLocator = page.locator('div:has(> p > code + button)')
 
   const command = commandsLocator.first()
   const devCommand = commandsLocator.nth(1)

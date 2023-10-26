@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## v0.4.0
+
+### 🚀 Features
+
+- Add back the ability to click on the entire command to copy it.
+
+### 🐞 Bug Fixes
+
+- Fix extension not working with the latest npmjs.com website changes.
+
 ## v0.3.1
 
 ### 🐞 Bug Fixes

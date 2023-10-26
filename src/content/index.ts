@@ -101,7 +101,7 @@ function hideExtension() {
 }
 
 function getNpmElements() {
-  const command = document.querySelector('code > button')?.parentElement?.parentElement
+  const command = document.querySelector('code + button')?.parentElement?.parentElement
   const dependency = document.querySelector('main > div > div > h1 > span')
   const sidebar = command?.parentElement
   const commandTitle = sidebar?.querySelector(':scope > h3')

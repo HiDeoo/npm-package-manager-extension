@@ -1,0 +1,26 @@
+.npm-package-manager-command:hover p {
+  background-color: hsl(120, 100%, 93%);
+  border-color: #00c642;
+}
+
+.npm-package-manager-command button {
+  align-items: center;
+  bottom: 0;
+  display: flex;
+  justify-content: right;
+  left: 0;
+  right: 0;
+  top: 0;
+}
+
+.npm-package-manager-command button svg {
+  margin-bottom: 3px;
+  margin-right: 8px;
+}
+
+.npm-package-manager-command code {
+  display: block;
+  margin-right: 25px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
