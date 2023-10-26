@@ -15,6 +15,7 @@
     {
       "matches": ["https://www.npmjs.com/package/*"],
       "js": ["loader.js"],
+      "css": ["content.css"],
       "run_at": "document_start"
     }
   ],

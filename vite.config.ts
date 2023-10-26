@@ -9,11 +9,15 @@ export default defineConfig({
     rollupOptions: {
       input: {
         content: resolve(__dirname, 'src', 'content', 'index.ts'),
+        content_styles: resolve(__dirname, 'src', 'content', 'styles.css'),
         loader: resolve(__dirname, 'src', 'content', 'loader.ts'),
         popup: resolve(__dirname, 'popup.html'),
         sw: resolve(__dirname, 'src', 'sw', 'index.ts'),
       },
       output: {
+        assetFileNames: ({ name }) => {
+          return name?.endsWith('content/styles.css') ? 'content.css' : 'assets/[name].[hash][extname]'
+        },
         entryFileNames: ({ name }) => {
           switch (name) {
             case 'content': {

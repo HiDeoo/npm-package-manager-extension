@@ -34,10 +34,14 @@ export function createCommandNode(
   const commandButtonNode = newCommand.querySelector('button')
 
   if (commandButtonNode) {
-    commandButtonNode.textContent = getPackageManagerCommand(packageManager, dependency, dev, version)
-
     commandButtonNode.addEventListener('click', handleCommandClick)
     commandButtonNode.addEventListener('keypress', handleCommandKeyPress)
+  }
+
+  const commandCodeNode = newCommand.querySelector('code')
+
+  if (commandCodeNode) {
+    commandCodeNode.textContent = getPackageManagerCommand(packageManager, dependency, dev, version)
   }
 
   return newCommand
@@ -65,7 +69,7 @@ export function removeCommandNodes() {
 }
 
 export function handleCommandClick(event: Event) {
-  if (!event.currentTarget || !(event.currentTarget instanceof HTMLElement) || !event.currentTarget.textContent) {
+  if (!event.currentTarget || !(event.currentTarget instanceof HTMLElement)) {
     return
   }
 
@@ -77,8 +81,7 @@ export function handleCommandKeyPress(event: Event) {
     !(event instanceof KeyboardEvent) ||
     event.key !== 'Enter' ||
     !event.currentTarget ||
-    !(event.currentTarget instanceof HTMLElement) ||
-    !event.currentTarget.textContent
+    !(event.currentTarget instanceof HTMLElement)
   ) {
     return
   }
@@ -87,13 +90,15 @@ export function handleCommandKeyPress(event: Event) {
 }
 
 function copyCommandToClipboard(target: HTMLElement) {
-  if (!target.textContent) {
+  const commandCodeNode = target.parentElement?.querySelector('code')
+
+  if (!commandCodeNode || !commandCodeNode.textContent) {
     return
   }
 
-  navigator.clipboard.writeText(target.textContent)
+  navigator.clipboard.writeText(commandCodeNode.textContent)
 
-  const svg = target.parentElement?.parentElement?.querySelector('svg[data-icon="copy"]')
+  const svg = target.querySelector('svg[data-icon="copy"]')
 
   if (!svg) {
     return
