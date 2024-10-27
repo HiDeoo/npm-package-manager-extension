@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## v0.4.1
+
+### 🐞 Bug Fixes
+
+- Fix extension not working with the latest npmjs.com website changes.
+
 ## v0.4.0
 
 ### 🚀 Features

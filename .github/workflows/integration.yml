@@ -17,45 +17,21 @@ jobs:
     if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name != github.repository
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Install Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
+        uses: actions/checkout@v4
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v2.2.2
+        uses: pnpm/action-setup@v4
         with:
-          version: 7.4.0
-          run_install: false
+          version: 8.6.9
 
-      - name: Get pnpm store directory path
-        id: pnpm-store-dir-path
-        run: echo "::set-output name=dir::$(pnpm store path)"
-
-      - name: Setup pnpm store cache
-        uses: actions/cache@v3
+      - name: Install Node.js
+        uses: actions/setup-node@v4
         with:
-          path: ${{ steps.pnpm-store-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-
+          cache: pnpm
+          node-version: 16
 
       - name: Install dependencies
         run: pnpm install
-
-      - name: Set Playwright path
-        run: echo "PLAYWRIGHT_BROWSERS_PATH=$HOME/.cache/playwright-bin" >> $GITHUB_ENV
-
-      - name: Setup Playwright cache
-        uses: actions/cache@v3
-        with:
-          path: ${{ env.PLAYWRIGHT_BROWSERS_PATH }}
-          key: ${{ runner.os }}-playwright
-
-      - name: Install Playwright browsers
-        run: pnpm playwright install chromium
 
       - name: Lint
         run: pnpm lint
