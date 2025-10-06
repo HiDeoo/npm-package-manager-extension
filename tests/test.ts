@@ -24,8 +24,9 @@ export const test = baseTest.extend({
   },
 })
 
-export function goToExtensionPage(page: Page) {
-  return page.goto(`chrome-extension://${EXT_TEST_ID}/popup.html`)
+export async function goToExtensionPage(page: Page) {
+  await page.goto(`chrome-extension://${EXT_TEST_ID}/popup.html`)
+  await page.waitForLoadState('networkidle')
 }
 
 export function goToNpmPage(page: Page, packageName = npmTestPackage, version?: string) {

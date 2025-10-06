@@ -85,6 +85,7 @@ test.describe('content', () => {
 
   test('should use the exact version in the commands when navigating to a specific version page', async ({ page }) => {
     const version = '18.2.0'
+    const versionAriaLabel = '18 .2 .0'
     const packageManager = 'pnpm'
 
     await goToExtensionPage(page)
@@ -96,7 +97,7 @@ test.describe('content', () => {
     await page.click('a[aria-controls="tabpanel-versions"]')
     await expect(page.getByRole('heading', { name: 'Current Tags' })).toBeVisible()
 
-    await page.click(`a[aria-label="${version}"]`)
+    await page.click(`a[aria-label="${versionAriaLabel}"]`)
     await page.waitForSelector('a[aria-controls="tabpanel-readme"][aria-selected="true"]')
 
     const [commandLocator, devCommandLocator, , tsDeclarationsLocator] = getCommandLocators(page)
@@ -162,7 +163,7 @@ test.describe('content', () => {
     await goToNpmPage(page)
     await page.waitForSelector(`h3:has-text("Install")`)
 
-    const commandLocator = page.locator('div:has(> p > code + button)')
+    const commandLocator = page.locator('div:has(> p > span > code + button)')
 
     expect(await commandLocator.count()).toBe(1)
     expect(await commandLocator.isVisible()).toBe(true)
@@ -171,7 +172,7 @@ test.describe('content', () => {
 })
 
 function getCommandLocators(page: Page) {
-  const commandsLocator = page.locator('div:has(> p > code + button)')
+  const commandsLocator = page.locator('div:has(> p > span > code + button)')
 
   const command = commandsLocator.first()
   const devCommand = commandsLocator.nth(1)
