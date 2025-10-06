@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Npm Package Manager",
-  "description": "Multiple package managers support for npmjs.com",
+  "description": "Multiple package managers support for the npm registry website",
   "version": "0.4.2",
   "action": {
     "default_popup": "popup.html",
