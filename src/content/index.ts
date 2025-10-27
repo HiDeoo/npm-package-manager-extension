@@ -102,7 +102,7 @@ function hideExtension() {
 
 function getNpmElements() {
   const command = document.querySelector('code + button')?.parentElement?.parentElement?.parentElement
-  const dependency = document.querySelector('main > div > div > h2 > span')
+  const dependency = document.querySelector('main > div > div > h1 > span')
   const sidebar = command?.parentElement
   const commandTitle = sidebar?.querySelector(':scope > h3')
 
@@ -115,7 +115,7 @@ function getNpmElements() {
 }
 
 function getTypeScriptDeclarations() {
-  const declarationElement = document.querySelector('main h2 > div[data-nosnippet=true]')?.firstChild
+  const declarationElement = document.querySelector('main h1 > div[data-nosnippet=true]')?.firstChild
 
   if (!(declarationElement instanceof HTMLAnchorElement)) {
     return
